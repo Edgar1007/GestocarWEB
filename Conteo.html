@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Sans&display=swap">
+    <title>Contador</title>
+    <style>
+        @media (min-width:1025px){
+            .docker{
+                width: 100%;
+                height: 7vw;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr); 
+                margin: 0;
+                padding: 0;
+                position: relative;
+            }
+            .dockColum {
+                display: flex;
+                padding: 0;
+                margin: 0;
+            }
+            .dockColumLeft{
+                margin: 0;
+                padding: 0;
+                width: auto;
+                height: 7vw;
+            }
+            .dockColumLeft img{
+                width: auto;
+                height: 7vw;
+            }
+            .dockColumRigth{
+                margin: 0;
+                padding: 0 5vw 0 1vw;
+                width: 70%;
+                height: 7vw;
+                display: block;
+            }
+            .contador{
+                margin: 0 0 0 0;
+                padding: 0.5vw 0 0 0;
+                width: 100%;
+                height: 3.5vw;
+                align-content: center;
+                text-align: center;
+                font-size: 3.2vw;
+                font-weight: 700;
+                font-family: 'Inria Sans', sans-serif;
+                color: black;
+            }
+            .mensaje{
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 3.5vw;
+            }
+            .mensaje p{
+                font-size: 1vw;
+                font-weight: 100;
+                font-family: 'Inria Sans', sans-serif;
+                color: black;
+                margin: 0;
+                padding: 0;
+            }
+            .icon1,.icon2,.icon3,.icon4{
+                font-size: 3.2vw;
+                font-weight: 700;
+                font-family: 'Inria Sans', sans-serif;
+                color: black;
+                position:absolute;
+                margin: 0;
+                padding: 0;
+            }
+            .icon1{
+                top: 8%;
+                left: 14%;
+            }
+            .icon2{
+                top: 8%;
+                left: 48%;
+            }
+            .icon3{
+                top: 8%;
+                left: 80%;
+            }
+            .icon4{
+                top: 8%;
+                left: 55%;
+            }
+        }
+        @media (min-width:768px) and (max-width:1024px){
+            .docker{
+                width: 100%;
+                height: 10vw;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr); 
+                margin: 0;
+                padding: 0;
+                position: relative;
+            }
+            .dockColum {
+                display: flex;
+                padding: 0;
+                margin: 0;
+            }
+            .dockColumLeft{
+                margin: 0;
+                padding: 0;
+                width: auto;
+                height: 10vw;
+            }
+            .dockColumLeft img{
+                width: auto;
+                height: 8vw;
+            }
+            .dockColumRigth{
+                margin: 0;
+                padding: 0 0 0 0;
+                width: 75%;
+                height: 10vw;
+                display: block;
+            }
+            .contador{
+                margin: 0 0 0 0;
+                padding: 0.1vw 0 0 0;
+                width: 100%;
+                height: 3.5vw;
+                align-content: center;
+                text-align: center;
+                font-size: 3.5vw;
+                font-weight: 700;
+                font-family: 'Inria Sans', sans-serif;
+                color: black;
+            }
+            .mensaje{
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 3.5vw;
+            }
+            .mensaje p{
+                font-size: 1.8vw;
+                font-weight: 100;
+                font-family: 'Inria Sans', sans-serif;
+                color: black;
+                margin: 0;
+                padding: 0;
+				line-height:1.8vw;
+            }
+            .icon1,.icon2,.icon3,.icon4{
+                font-size: 3.5vw;
+                font-weight: 700;
+                font-family: 'Inria Sans', sans-serif;
+                color: black;
+                position:absolute;
+                margin: 0;
+                padding: 0;
+            }
+            .icon1{
+                top: 3%;
+                left: 17%;
+            }
+            .icon2{
+                top: 3%;
+                left: 50%;
+            }
+            .icon3{
+                top: 3%;
+                left: 82%;
+            }
+            .icon4{
+                top: 1%;
+                left: 59%;
+            }
+        }
+        @media (max-width:767px){
+            .docker{
+                width: 100%;
+                height: auto;
+                display: grid;
+                grid-template-columns: repeat(1, 1fr); 
+                margin: 0;
+                padding: 0;
+                position: relative;
+            }
+            .dockColum {
+                display: flex;
+                padding: 3vw 0 3vw 0;
+                margin: 0;
+            }
+            .dockColumLeft{
+                margin: 0;
+                padding: 0;
+                width: auto;
+                height: 15vw;
+            }
+            .dockColumLeft img{
+                width: auto;
+                height: 15vw;
+            }
+            .dockColumRigth{
+                margin: 0;
+                padding: 0 1vw 0 1vw;
+                width: 70%;
+                height: 15vw;
+                display: block;
+            }
+            .contador{
+                margin: 0 0 0 0;
+                padding: 0.5vw 7vw 0 0;
+                width: 100%;
+                height: 7.5vw;
+                align-content: center;
+                text-align: center;
+                font-size: 5vw;
+                font-weight: 700;
+                font-family: 'Inria Sans', sans-serif;
+                color: black;
+            }
+            .mensaje{
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 7.5vw;
+            }
+            .mensaje p{
+                font-size: 3.5vw;
+                font-weight: 100;
+                font-family: 'Inria Sans', sans-serif;
+                color: black;
+                margin: 0;
+                padding: 0;
+				line-height: 3.5vw;
+            }
+            .icon1,.icon2,.icon3,.icon4{
+                font-size: 5vw;
+                font-weight: 700;
+                font-family: 'Inria Sans', sans-serif;
+                color: black;
+                position:absolute;
+                margin: 0;
+                padding: 0;
+            }
+            .icon1{
+                top: 6%;
+                left: 43%;
+            }
+            .icon2{
+                top: 39%;
+                left: 44%;
+            }
+            .icon3{
+                top: 73%;
+                left: 43%;
+            }
+            .icon4{
+                top: 39%;
+                left: 59%;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="docker">
+        <div class="dockColum">
+            <div class="dockColumLeft">
+                <img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/Group-148.png" alt="Bandera">
+            </div>
+            <div class="dockColumRigth">
+                <div class="contador" id="contador1">
+                    0
+                </div>
+                <div class="mensaje">
+                    <p>Laboramos en mas de 12 estados.</p>
+                </div>
+                <p class="icon1">+</p>
+            </div>
+        </div>
+        <div class="dockColum">
+            <div class="dockColumLeft">
+                <img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/Group-149.png" alt="Persona">
+            </div>
+            <div class="dockColumRigth">
+                <div class="contador" id="contador2">
+                    0
+                </div>
+                <div class="mensaje">
+                    <p>Mas de Treinta mil clientes nos prefieren.</p>
+                </div>
+                <p class="icon2">+</p>
+                <p class="icon4">K</p>
+            </div>
+        </div>
+        <div class="dockColum">
+            <div class="dockColumLeft">
+                <img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/Group-150.png" alt="Gente">
+            </div>
+            <div class="dockColumRigth">
+                <div class="contador" id="contador3">
+                    0
+                </div>
+                <div class="mensaje">
+                    <p>Convenio con mas de 700 empresas.</p>
+                </div>
+                <p class="icon3">+</p>
+            </div>
+        </div>
+    </div>
+</body>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const contadorElement1 = document.getElementById('contador1');
+            const contadorElement2 = document.getElementById('contador2');
+            const contadorElement3 = document.getElementById('contador3');
+            const objetivo1 = 10; 
+            const objetivo2 = 30; 
+            const objetivo3 = 700; 
+            const duracionAnimacion = 10000; 
+
+            const intervalo1 = duracionAnimacion / objetivo1;
+            const intervalo2 = duracionAnimacion / objetivo2; 
+            const intervalo3 = duracionAnimacion / objetivo3;  
+            let contador1 = 0;
+            let contador2 = 0;
+            let contador3 = 0;
+
+            const actualizarContador1 = () => {
+                contadorElement1.textContent = contador1;
+                if (contador1 < objetivo1) {
+                    contador1++;
+                    setTimeout(actualizarContador1, intervalo1);
+                }
+            };
+
+            const actualizarContador2 = () => {
+                contadorElement2.textContent = contador2;
+                if (contador2 < objetivo2) {
+                    contador2++;
+                    setTimeout(actualizarContador2, intervalo2);
+                }
+            };
+
+            const actualizarContador3 = () => {
+                contadorElement3.textContent = contador3;
+                if (contador3 < objetivo3) {
+                    contador3++;
+                    setTimeout(actualizarContador3, intervalo3);
+                }
+            };
+
+            actualizarContador1();
+            actualizarContador2();
+            actualizarContador3();
+        });
+    </script>
+</html>

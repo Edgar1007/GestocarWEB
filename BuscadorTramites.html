@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Sans&display=swap">
+  <title>Buscador Tramites</title>
+  <style>
+	  @media (min-width:1025px){
+      .containerBC {
+        display: flex;
+        background-color: white;
+        width: 100%;
+        height: 80vh;
+      }
+      .left-columnBC {
+        width: 30%;
+        padding: 3vw 0 0 5vw;
+        background-color: #ffffff;
+        border-right: #000000;
+        border-width: 1px;
+        border-color: #000000;
+      }
+      .right-columnBC {
+        width: 70%;
+        padding: 3vw 0 0 2vw;
+        background-color: #ffffff;
+        overflow-y: auto;  
+      }
+      .right-columnBC::-webkit-scrollbar {
+        width: 5px; /* Ancho de la barra */
+      }
+      .right-columnBC::-webkit-scrollbar-track {
+        background-color: #FFFFFF; 
+      }
+      .right-columnBC::-webkit-scrollbar-thumb {
+        background-color: #E7632E; 
+        border-radius: 6px; 
+      }
+      .right-columnBC::-webkit-scrollbar-thumb:hover {
+        background-color: #F6F7F8;
+      }
+      .label-imageBC {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+      }
+      .label-imageBC img {
+        width: 2vw;
+        height: auto;
+        margin-right: 10px;
+      }
+      .label-imageBC label {
+        font-size: 1.2vw;
+        font-weight: 900;
+        color: black;
+        font-family: 'Inria Sans', sans-serif;
+      }
+      .tt {
+        width: 95%;
+        border-collapse: separate;
+        border-spacing: 1vw 1vw;
+        border:none;
+      }
+      .tt th, .tt td {
+        border: none;
+        padding: 0.5vw 2vw 0.5vw 2vw;
+        background-color: #F6F7F8;
+        border-radius: 1vh;
+        font-size: 1.2vw;
+        color: black;
+        font-family: 'Inria Sans', sans-serif;
+      }
+      .tt button{
+        font-size: 1.2vw;
+        color: #E7632E;
+        font-family: 'Inria Sans', sans-serif;
+        background-color: #F6F7F8;
+        border: none;
+        cursor: pointer;
+      }
+      .ancho-70 {
+        width: 70%;
+        text-align: left;
+      }
+      .ancho-30 {
+        width: 30%;
+        text-align: center;
+      }
+      .divider {
+        width: 3px;
+        background-color: #E9E9E9; 
+        margin-top: 3vw;
+      }
+      .eleccionEstado{
+        padding: 1vw 0 0 1vw;
+      }
+      .eleccionEstado .opcionEE input[type="radio"]{
+        display: none;
+      }
+      .eleccionEstado .opcionEE label{
+        color: #000000;
+        font-family: 'Inria Sans', sans-serif;
+        font-size: 1.2vw;
+        padding: 0.8vw  0.5vw 1vw 1vw;
+        display: inline-block;
+        cursor: pointer;
+        -webkit-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+      .eleccionEstado label:hover{
+        background: rgba(231,99,46,0.1);
+      }
+      .eleccionEstado .opcionEE label:before{
+        content: "";
+        width: 1vw;
+        height: 1vw;
+        display: inline-block;
+        background:none;
+        border:3px solid #E7632E;
+        border-radius: 3%;
+        position:relative;
+        left: -1vw;
+      }
+      .eleccionEstado .opcionEE input[type="radio"]:checked + label:before{
+        content: "";
+        width: 1vw;
+        height: 1vw;
+        display: inline-block;
+        background:#E7632E;
+        border:3px solid #E7632E;
+        border-radius: 3%;
+        position:relative;
+        left: -1vw;
+      }
+
+      .contentVE{
+        background-color: white !important;
+        color: black !important;
+        font-family: 'Inria Sans', sans-serif !important;
+        margin: 0 !important;
+        padding: 0 1vw 2vw 1vw !important;
+        width: 35vw;
+        height: auto;
+        border-radius: 2vh;
+      }
+      .titleVE{
+        font-size: 1.3vw !important;
+        font-weight: 700 !important;
+        text-align: center !important;
+        margin: 0 !important;
+        padding: 1vw 0 0.5vw 0 !important;
+      }
+      .personFM{
+        font-size: 1.1vw !important;
+        font-weight: 600 !important;
+        text-align: center !important;
+        margin: 0 !important;
+        padding: 0.7vw 0 0.7vw 0 !important;
+        color: #E7632E !important;
+      }
+      .listPF{
+        font-size: 0.9vw !important;
+        font-weight: 100 !important;
+        margin: 0 !important;
+        padding: 0 0 0 30% !important;
+        font-family: 'Inria Sans', sans-serif !important;
+      }
+      .notas{
+        font-size: 0.9vw !important;
+        font-weight: 100 !important;
+        text-align: center !important;
+        margin: 0 !important;
+        padding: 1vw 0 0.7vw 0 !important;
+      }
+      .notas span{
+        font-weight: 600 !important;
+        color: #E7632E !important;
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 4;
+      }
+      .cerrar {
+        position: absolute;
+        right: 30.5vw;
+        color: #ffffff;
+        background-color: #E7632E;
+        font-size: 1.7vw;
+        cursor: pointer;
+        z-index: 4;
+        padding: 0vw 0.3vw 0.3vw 0.3vw;
+        border-radius: 50vh;
+      }
+    }
+    @media (min-width:768px) and (max-width:1024px){
+      .containerBC {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: auto;
+        grid-template-columns:auto;
+        gap: 1px;
+        background-color: rgb(255, 255, 255);
+        border: none;
+        width: 99vw;
+        height: 100vw;
+        margin: 0;
+        padding: 0;
+      }
+      .left-columnBC {
+        position: relative;
+        width: auto;
+        height: 20vw;
+        margin: 0;
+        padding: 0 0 0 32vw;
+        border-right: #000000;
+        border-width: 1px;
+        border-color: #000000;
+      }
+      .right-columnBC {
+        position: relative;
+        width: 99vw;
+        height: 70vw;
+        padding: 3vw 0 0 2vw;
+        overflow-y: auto;  
+      }
+      .especiall2{
+        display: none;
+      }
+      .right-columnBC::-webkit-scrollbar {
+        width: 5px; /* Ancho de la barra */
+      }
+      .right-columnBC::-webkit-scrollbar-track {
+          background-color: #FFFFFF; 
+      }
+      .right-columnBC::-webkit-scrollbar-thumb {
+        background-color: #E7632E; 
+        border-radius: 6px; 
+      }
+      .right-columnBC::-webkit-scrollbar-thumb:hover {
+          background-color: #F6F7F8;
+      }
+      .label-imageBC {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+      }
+      .label-imageBC img {
+        width: 5vw;
+        height: auto;
+        padding-right: 2vw;
+      }
+      .label-imageBC label {
+        font-size: 3vw;
+        font-weight: 900;
+        color: black;
+        font-family: 'Inria Sans', sans-serif;
+      }
+      .tt {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 1vw 1vw;
+        padding-top: 4vw;
+        border:none;
+      }
+      .tt th, .tt td {
+        border: none;
+        padding: 0.5vw 2vw 0.5vw 2vw;
+        background-color: #F6F7F8;
+        border-radius: 1vh;
+        font-size: 2.4vw;
+        color: black;
+        font-family: 'Inria Sans', sans-serif;
+      }
+      .tt button{
+        font-size: 2.4vw;
+        color: #E7632E;
+        font-family: 'Inria Sans', sans-serif;
+        background-color: #F6F7F8;
+        border: none;
+        cursor: pointer;
+      }
+      .ancho-70 {
+        width: 70%;
+        text-align: left;
+      }
+      .ancho-30 {
+        width: 30%;
+        text-align: center;
+      }
+      .divider {
+        width: 3px;
+        background-color: #E9E9E9; 
+        margin-top: 3vw;
+      }
+      .eleccionEstado{
+        padding: 3vw 0 0 6vw;
+      }
+      .eleccionEstado .opcionEE input[type="radio"]{
+        display: none;
+      }
+      .eleccionEstado .opcionEE label{
+        color: #000000;
+        font-family: 'Inria Sans', sans-serif;
+        font-size: 2.4vw;
+        padding: 1.5vw 1.5vw 1vw 0vw;
+        display: inline-block;
+        cursor: pointer;
+        -webkit-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+      .eleccionEstado label:hover{
+        background: rgba(231,99,46,0.1);
+      }
+      .eleccionEstado .opcionEE label:before{
+        content: "";
+        width: 2vw;
+        height: 2vw;
+        display: inline-block;
+        background:none;
+        border:3px solid #E7632E;
+        border-radius: 3%;
+        position:relative;
+        left: -2vw;
+      }
+      .eleccionEstado .opcionEE input[type="radio"]:checked + label:before{
+        content: "";
+        width: 2vw;
+        height: 2vw;
+        display: inline-block;
+        background:#E7632E;
+        border:3px solid #E7632E;
+        border-radius: 3%;
+        position:relative;
+        left: -2vw;
+      }
+
+      .contentVE{
+        background-color: white;
+        color: black;
+        font-family: 'Inria Sans', sans-serif;
+        margin: 0;
+        padding: 0 1vw 2vw 1vw;
+        width: 80vw;
+        height: auto; 
+        border-radius: 2vh;
+      }
+      .titleVE{
+        font-size: 3.5vw;
+        font-weight: 700;
+        text-align: center;
+        margin: 0;
+        padding: 2vw 0 0 0;
+      }
+      .personFM{
+        font-size: 3vw;
+        font-weight: 600;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        color: #E7632E;
+      }
+      .listPF{
+        font-size: 2.3vw;
+        font-weight: 300;
+        margin: 0;
+        padding: 0 0 0 15vw !important;
+      }
+      .notas{
+        font-size: 2.3vw;
+        font-weight: 300;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+      }
+      .notas span{
+		font-weight: 600;
+        color: #E7632E;
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 4;
+      }
+      .cerrar {
+        position: absolute;
+        right: 7vw;
+        color: #fff;
+        background-color: #E7632E;
+        font-size: 3vw;
+        cursor: pointer;
+        z-index: 4;
+        padding: 0vw 1vw 0.3vw 1vw;
+        border-radius: 50vh;
+      }
+    }
+    @media (max-width:767px){
+      .containerBC {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: auto;
+        grid-template-columns:auto;
+        gap: 1px;
+        background-color: rgb(255, 255, 255);
+        border: none;
+        width: 99vw;
+        height: 115vw;
+        margin: 0;
+        padding: 0;
+      }
+      .left-columnBC {
+        position: relative;
+        width: auto;
+        height: 30vw;
+        margin: 0;
+        padding: 0 0 0 16vw;
+        border-right: #000000;
+        border-width: 1px;
+        border-color: #000000;
+      }
+      .right-columnBC {
+        position: relative;
+        width: 99vw;
+        height: 85vw;
+        padding: 5vw 0 0 0;
+        overflow-y: auto;  
+      }
+      .especiall2{
+        display: none;
+      }
+      .right-columnBC::-webkit-scrollbar {
+        width: 5px; 
+      }
+      .right-columnBC::-webkit-scrollbar-track {
+          background-color: #FFFFFF; 
+      }
+      .right-columnBC::-webkit-scrollbar-thumb {
+        background-color: #E7632E; 
+        border-radius: 6px; 
+      }
+      .right-columnBC::-webkit-scrollbar-thumb:hover {
+          background-color: #F6F7F8;
+      }
+      .label-imageBC {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+      }
+      .label-imageBC img {
+        width: 7vw;
+        height: auto;
+        padding-right: 2vw;
+      }
+      .label-imageBC label {
+        font-size: 6vw;
+        font-weight: 900;
+        color: black;
+        font-family: 'Inria Sans', sans-serif;
+      }
+      .tt {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 2vw 2vw;
+        padding: 4vw 0 0 2vw;
+        border:none;
+      }
+      .tt th, .tt td {
+        border: none;
+        padding: 0.5vw 2vw 0.5vw 2vw;
+        background-color: #F6F7F8;
+        border-radius: 1vh;
+        font-size: 4vw;
+        color: black;
+        font-family: 'Inria Sans', sans-serif;
+      }
+      .tt button{
+        font-size: 4vw;
+        color: #E7632E;
+        font-family: 'Inria Sans', sans-serif;
+        background-color: #F6F7F8;
+        border: none;
+        cursor: pointer;
+      }
+      .ancho-70 {
+        width: 70%;
+        text-align: left;
+      }
+      .ancho-30 {
+        width: 30%;
+        text-align: center;
+      }
+      .divider {
+        width: 3px;
+        background-color: #E9E9E9; 
+        margin-top: 3vw;
+      }
+      .eleccionEstado{
+        padding: 3vw 0 0 14vw;
+      }
+      .eleccionEstado .opcionEE input[type="radio"]{
+        display: none;
+      }
+      .eleccionEstado .opcionEE label{
+        color: #000000;
+        font-family: 'Inria Sans', sans-serif;
+        font-size: 4vw;
+        padding: 1.5vw 1.5vw 1vw 0vw;
+        display: inline-block;
+        cursor: pointer;
+        -webkit-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+      .eleccionEstado label:hover{
+        background: rgba(231,99,46,0.1);
+      }
+      .eleccionEstado .opcionEE label:before{
+        content: "";
+        width: 3.5vw;
+        height: 3.5vw;
+        display: inline-block;
+        background:none;
+        border:3px solid #E7632E;
+        border-radius: 3%;
+        position:relative;
+        left: -2vw;
+      }
+      .eleccionEstado .opcionEE input[type="radio"]:checked + label:before{
+        content: "";
+        width: 3.5vw;
+        height: 3.5vw;
+        display: inline-block;
+        background:#E7632E;
+        border:3px solid #E7632E;
+        border-radius: 3%;
+        position:relative;
+        left: -2vw;
+      }
+
+      .contentVE{
+        background-color: white;
+        color: black;
+        font-family: 'Inria Sans', sans-serif;
+        margin: 0;
+        padding: 0 1vw 2vw 1vw ;
+        width: 80vw;
+        height: auto; 
+        border-radius: 2vh;
+      }
+      .titleVE{
+		    line-height:4vw;
+        font-size: 4vw;
+        font-weight: 700;
+        text-align: center;
+        margin: 0;
+        padding: 2vw 0 0 0;
+      }
+      .personFM{
+		    line-height:3.5vw;
+        font-size: 3.5vw;
+        font-weight: 600;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        color: #E7632E;
+      }
+      .listPF{
+		    line-height:3vw;
+        font-size: 2.8vw;
+        font-weight: 300;
+        margin: 0;
+        padding: 0 0 0 15% !important;
+      }
+      .notas{
+		    line-height:3vw;
+        font-size: 2.8vw;
+        font-weight: 300;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+      }
+      .notas span{
+        font-weight: 600;
+        color: #E7632E;
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 4;
+      }
+      .cerrar {
+        position: absolute;
+        right: 7vw;
+        color: #fff;
+        background-color: #E7632E;
+        font-size: 4vw;
+        cursor: pointer;
+        z-index: 4;
+        padding: 0vw 2vw 0vw 2vw;
+        border-radius: 50vh;
+      }
+    }
+    
+  </style>
+</head>
+<body>
+
+<div class="containerBC">
+
+  <div class="left-columnBC">
+    <div class="label-imageBC">
+      <img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/fi-rr-marker.png" alt="Imagen">
+      <label for="states">Selecciona tu estado:</label>
+    </div>
+    <div class="eleccionEstado">
+        <div class="opcionEE">
+            <input type="radio" id="ciudad_de_mexico" value="ciudad_de_mexico" name="entidad">
+            <label for="ciudad_de_mexico">Ciudad de México</label>
+        </div>
+        <div class="opcionEE">
+            <input type="radio" id="estado_de_mexico" value="estado_de_mexico"  name="entidad">
+            <label for="estado_de_mexico">Estado de México</label>
+        </div>
+        <div class="opcionEE">
+            <input type="radio" id="morelos" value="morelos" name="entidad">
+            <label for="morelos">Morelos</label>
+        </div>
+    </div>
+  </div>
+
+  <div class="divider especiall2"></div>
+
+  <div class="right-columnBC">
+    <div class="label-imageBC">
+      <img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/fi-rr-document-signed.png" alt="Imagen">
+      <label for="tasks">Trámites disponibles:</label>
+    </div>
+    <div id="enlista">
+      
+    </div>
+
+    <div class="modal" id="modal1">
+      <span class="cerrar" onclick="cerrarVentana('modal1')">&times;</span>
+      <div class="contentVE" id="contentVE">
+        
+      </div>
+    </div>
+
+  </div>
+</div>
+
+	<script>
+    const R1        = document.getElementById('ciudad_de_mexico');
+    const R2        = document.getElementById('estado_de_mexico');
+    const R3        = document.getElementById('morelos');
+    const enlista   = document.getElementById('enlista');
+    let radial      = document.querySelectorAll('input[name="entidad"]');
+    let estadoElec;
+    let arrayA = [];
+    let arrayAA= [];
+    let tramites = ["Alta de placas vehículo nuevos a gasolina, híbridos y eléctricos","Alta de placas vehículos de otra entidad","Alta de placas para motos nuevas","Alta de placas para motos con adeudos","Alta de placas vehículos de carga","Alta de placas federales","Alta de placas vehículos clásicos","Alta de placas de discapacidad","Cambio de propietario","Refrendo vehicular","Renovación de tarjeta de circulación","Reemplacamiento","Baja de placas","Verificación vehicular","Permiso de carga tipo Antra y FAT","Revista vehicular para transporte de carga","Liberación en corralón","Acreditación de propiedad ante MP","Traslados de autos","Mensajería","Validación automotriz","Seguro para tu auto"]
+    let arrayWindow1 = [`<p class="titleVE">Alta de placas vehículo nuevos a gasolina, híbridos y eléctricos</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura o copia de la factura SIN VALOR</li><li>Carta factura</li><li>Identificación INE/PASAPORTE/CEDULA PROFESIONAL</li><li>Comprobante de domicilio en CDMX</li></ol><p class="notas"><span>Nota: </span>recuerda que, para ser acreedor al refrendo vehicular, no debe de costar tu auto más de $250,000.00 y debes de emplacar tu auto dentro de los primeros 15 días una vez emitida la factura</p<p class="personFM">Persona moral</p><ol class="listPF"><li>Factura o copia de la factura SIN VALOR</li><li>Carta factura</li><li>Acta constitutiva</li><li>Constancia de situación fiscal</li><li>Comprobante de domicilio</li><li>Poder notarial del representante legal</li><li>Identificación de representante legal</li></ol><p class="notas"><span>Nota: </span>te recordamos que todos los autos a nombre de empresa, pagan tenencia sin importar el costo de la unidad.</p>`,
+    `<p class="titleVE">Alta de placas vehículos de otra entidad</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura</li><li>Refactura si aplica</li><li>5 últimos pagos de tenencia</li><li>Identificación INE-PASAPORTE-CEDULA PROFESIONAL</li><li>Comprobante de domicilio en CDMX</li><li>Baja de placas</li></ol><p class="notas"><span>Nota: </span>tienes hasta el 31 de marzo para ser acreedor al subsidio al dar de alta tus placas.</p><p class="personFM">Persona moral</p><ol class="listPF"><li>Factura</li><li>Refactura</li><li>5 últimos pagos de tenencia</li><li>Baja de placas</li><li>Acta constitutiva</li><li>Constancia de situación fiscal</li><li>Comprobante de domicilio</li><li>Poder notarial del representante legal</li><li>Identificación del representante legal</li></ol><p class="notas"><span>Nota: </span>te recordamos que los autos de empresa, siempre pagarán tenencia.</p>`,
+    `<p class="titleVE">Alta de placas para motos nuevas</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura o copia de la factura sin valor</li><li>Carta factura</li><li>Identificación INE/PASAPORTE/CEDULA PROFESIONAL</li><li>Comprobante de domicilio en CDMX</li></ol><p class="notas"><span>Nota: </span>recuerdo que para ser acreedor al refrendo vehicular, no debe de costar tu moto mas de $250,000.00 y debes de emplacar tu moto dentro de los primeros 15 días una vez emitida la factura.</p<p class="personFM">Persona moral</p><ol class="listPF"><li>Factura o copia de la factura SIN VALOR</li><li>Carta factura</li><li>Acta constitutiva</li><li>Constancia de situación fiscal</li><li>Comprobante de domicilio</li><li>Poder notarial del representante legal</li><li>Identificación de representante legal</li></ol><p class="notas"><span>Nota: </span>te recordamos que todos las motos a nombre de empresa, pagan tenencia sin importar el costo de la unidad.</p>`,
+    `<p class="titleVE">Alta de placas para motos con adeudos</p>`,
+    `<p class="titleVE">Alta de placas vehículos de carga</p><p class="personFM">Persona física</p><ol class="listPF"><li>Identificación INE/PASAPORTE/CEDULA PROFESIONAL</li><li>Comprobante de domicilio</li><li>Factura</li><li>Póliza de seguro</li><li>Licencia del chofer que manejara la unidad</li></ol><p class="notas"><span>Nota: </span>todo vehículo de carga paga tenencia - no hay cambios de propietario en vehículos de carga.</p><p class="personFM">Persona moral</p><ol class="listPF"><li>Factura</li><li>Acta constitutiva</li><li>Constancia de situación fiscal</li><li>Comprobante de domicilio</li><li>Póliza de seguro</li><li>Poder notarial del repr. legal</li><li>Identificación del repr. legal</li><li>Licencia de chofer que manejara la unidad</li></ol><p class="notas"><span>Nota: </span>según el tonelaje de la unidad, es licencia del chofer.</p>`,
+    `<p class="titleVE">Alta de placas federales</p><ol class="listPF"><li>Registro ante la SCT</li><li>Poder notarial a favor de Gestocar</li><li>Factura de la unidad</li><li>Cartas ecologicas</li><li>Verificación físico-mecánica y de bajas emisiones</li><li>Constancia de situación fiscal</li><li>Dimensiones de la unidad</li></ol>`,
+    `<p class="titleVE">Alta de placas vehículos clásicos</p><ol class="listPF"><li>Contar con el 90% de originalidad del auto para su validación ante IPN</li><li>Tener todo pagado por pago de tenencias AL AÑO en  CURSO</li><li>Factura ORIGINAL</li><li>Identificación del propietario</li><li>Comprobante de domicilio</li><li>Talón del SAT</li><li>Placas de particulares para su baja correspondiente.</li></ol><p class="notas"><span>Nota: </span>al pasar la prueba de inspección ante el IPN, este organismo emitirá un dictamen para la secretaría de movilidad y uno en original para usted y así iniciar el proceso de alta de placas de auto antiguo.</p>`,
+    `<p class="titleVE">Alta de placas de discapacidad</p><p class="personFM">Autos nuevos</p><ol class="listPF"><li>Tarjeta de gratuidad que emite el DIF de tu entidad</li><li>Factura</li><li>Identificación INE/PASAPORTE</li><li>Comprobante de domicilio</li><li>Tarjeta de gratuidad (requisito indispensable)</li></ol><p class="personFM">Autos usados con placa particular</p><ol class="listPF"><li>Tarjeta de gratuidad que emite el DIF de tu entidad</li><li>Factura</li><li>Tarjeta de circulación vigente</li><li>Pago de tenencia año corriente</li><li>Identificación INE/PASAPORTE </li><li>Comprobante de domicilio</li><li>Baja de placas o Placas del auto para su baja correspondiente</li></ol><p class="notas"><span>Nota: </span>placas de discapacidad no emite el gobierno a personas morales.</p>`,
+    `<p class="titleVE">Cambio de propietario</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura</li><li>INE comprador y vendedor</li><li>Contrato de venta</li><li>Comprobante de domicilio nuevo propietario</li><li>Tarjeta de circulación</li><li>Pago de tenencia año corriente</li></ol><p class="notas"><span>Nota: </span>el cambio de propietario solo aplica en el nombre en la tarjeta de circulación, no se puede modificar datos del vehículo.</p><p class="personFM">Persona moral</p><ol class="listPF"><li>Factura</li><li>Refactura</li><li>Tarjeta de circulación</li><li>Pago de tenencia año corriente</li><li>Contrato de venta</li><li>Acta constitutiva nueva empresa</li><li>Constancia de situación fiscal</li><li>Comprobante de domicilio</li><li>Poder notarial del rep legal</li><li>INE repr. legal</li></ol><p class="notas"><span>Nota: </span>Las facturas ya no se endosan, debe de ser acompañado de una refactura.</p>`,
+    `<p class="titleVE">Refrendo vehicular</p>`,
+    `<p class="titleVE">Renovación de tarjeta de circulación</p><p class="personFM">Persona física</p><ol class="listPF"><li>Identificación INE/PASAPORTE/CEDULA PROFESIONAL</li><li>Factura</li><li>Tarjeta de circulación vigente o acta MP por pérdida de tarjeta</li></ol><p class="notas"><span>Nota: </span>al renovar la tarjeta de circulación, se renueva por 3 años.</p><p class="personFM">Persona moral</p><ol class="listPF"><li>Tarjeta de circulación o acta de MP por pérdida de tarjeta</li><li>Factura</li><li>Acta constitutiva</li><li>Constancia de situación fiscal</li><li>Comprobante de domicilio</li><li>INE repr. legal</li><li>Poder notarial del repr. legal</li></ol>`,
+    `<p class="titleVE">Reemplacamiento</p>`,
+    `<p class="titleVE">Baja de placas</p><p class="personFM">Persona física</p><ol class="listPF"><li>Identificación INE/PASAPORTE/CEDULA PROFESIONAL</li><li>Tarjeta de circulación</li><li>Placas del vehículo</li></ol><p class="notas"><span>Nota: </span>para baja por siniestro es necesario la carta solicitud del seguro, baja por robo es necesario presentar el acta de MP ratificada</p><p class="personFM">Persona moral</p><ol class="listPF"><li>Factura</li><li>Tarjeta de circulación</li><li>Placas del vehículo</li><li>Acta constitutiva</li><li>Constancia de situación fiscal</li><li>Identificación del rep legal</li><li>Poder del rep legal</li></ol>`,
+    `<p class="titleVE">Verificación vehicular</p><p class="personFM">Auto nuevo a gasolina</p><ol class="listPF"><li>Factura</li><li>Alta de placas</li><li>Tarjeta de circulación en original</li><li>INE del verificador</li><li>Cita del verificentro</li></ol><p class="personFM">Auto usado a gasolina</p><ol class="listPF"><li>Tarjeta de circulación vigente</li><li>No tener foto-cívicas</li><li>Boleta de verificación anterior al semestre</li><li>Cita del verificentro</li></ol><p class="notas"><span>Nota: </span>verificación para autos híbridos o eléctricos, se realiza cita en cualquier verificentro de la cdmx y ahí se otorga el holograma tipo exento por 8 años sin costo alguno.</p>`,
+    `<p class="titleVE">Permiso de carga tipo Antra y FAT</p><ol class="listPF"><li>Identificación del propietario representante legal</li><li>Tarjeta de circulación o factura</li><li>Hacer mención de lo que se va a transportar por carga </li></ol><p class="notas"><span>Nota: </span>se te hace entrega de tu póliza de permiso, así como tu calcomanía de permiso.</p>`,
+    `<p class="titleVE">Revista vehicular para transporte de carga</p><p class="personFM">Revista de carga</p><ol class="listPF"><li>Constancia de conclusión de la revista inspeccion año anterior</li><li>Permiso de carga emitido por la secretaría de movilidad</li><li>Póliza de seguro vigente</li><li>Tarjeta de circulación vigente</li><li>Factura de la unidad</li><li>Comprobante de domicilio vigente</li><li>Pago de los derechos de revista</li><li>Fotografías de la unidad</li><li>Foto de la placa delantera de la unidad</li><li>Fotografía del número de serie directamente de la unidad</li><li>Fotografía de la licencia del chofer que manejara la unidad</li></ol><p class="personFM">Documentos de empresa</p><ol class="listPF"><li>Acta constitutiva</li><li>Constancia de situación fiscal</li><li>Comprobante de domicilio</li><li>Poder notarial del representante legal</li><li>Identificación del representante legal</li></ol><p class="notas"><span>Nota: </span>si no se cuenta con revista anterior, se es acreedor a una multa por cada año de revista no presentada.</p>`,
+    `<p class="titleVE">Liberación en corralón</p><ol class="listPF"><li>Factura</li><li>INE infractor</li><li>Licencia de quien libera</li><li>Pago de multas</li></ol>`,
+    `<p class="titleVE">Acreditación de propiedad ante MP</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura o copia de la factura SIN VALOR</li><li>Carta factura</li><li>Identificación INE/PASAPORTE/CEDULA PROFESIONAL</li><li>Comprobante de domicilio en CDMX</li></ol><p class="notas"><span>Nota: </span>recuerda que, para ser acreedor al refrendo vehicular, no debe de costar tu auto más de $250,000.00 y debes de emplacar tu auto dentro de los primeros 15 días una vez emitida la factura</p><p class="personFM">Persona moral</p><ol class="listPF"><li>Factura o copia de la factura SIN VALOR</li><li>Carta factura</li><li>Acta constitutiva</li><li>Constancia de situación fiscal</li><li>Comprobante de domicilio</li><li>Poder notarial del representante legal</li><li>Identificación de representante legal</li></ol><p class="notas"><span>Nota: </span>te recordamos que todos los autos a nombre de empresa, pagan tenencia sin importar el costo de la unidad.</p>`,
+    `<p class="titleVE">Traslados de autos</p><ol class="listPF"><li>Solicitud de cotización</li><li>Tarjeta de circulación vigente</li></ol>`,
+    `<p class="titleVE">Mensajería</p><p class="notas">Por convenio</p>`,
+    `<p class="titleVE">Validación automotriz</p><p class="notas">Si piensas en comprar un auto asegúrate de que todo este en orden en cuanto su documentación se refiere.</p><p class="notas">Haz tu solicitud vía correo yocuidomiauto@gmail.com, Indícanos lugar y fecha de inspección. Te entregaremos un REPORTE  vehicular donde veremos las siguiente INSPECCIONES:</p><ol class="listPF"><li>Validación de documentos (factura ante el SAT)</li><li>Validación del NIV en chasis o pared de fuego</li><li>Tarjeta de circulación</li><li>Indicaremos no adeudos</li><li>Repuve</li><li>Si la unidad ya tuvo algún siniestro</li><li>Inspección física del auto y mecánica</li><li>Costo sugerido a la compra</li></ol>`,
+    `<p class="titleVE">Seguro para tu auto</p><p class="notas">Envíanos los siguientes datos y anexa tu factura para enviarte una cotización:</p><p class="personFM">Persona moral</p><ol class="listPF"><li>Fecha de nacimiento</li><li>Nombre completo</li><li>Código postal de donde vives</li><li>Correo electrónico</li><li>Teléfono</li></ol>`];
+    let arrayWindow2 = [`<p class="titleVE">Alta de placas vehículo nuevos a gasolina, híbridos y eléctricos</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura (la agencia está obligada a proporcionar la copia de la factura sin valor) </li><li>Carta factura</li><li>INE o pasaporte</li><li>CURP</li><li>Comprobante de domicilio en el estado de México a nombre de la persona quien viene en la factura emitida por la agencia</li></ol><p class="notas"><span>Nota: </span>recuerda que, para ser acreedor al refrendo vehicular, no debe de costar tu auto más de $464,000.00 ya con IVA y debes de emplacar tu auto dentro de los primeros 15 días una vez emitida la factura.</p><p class="personFM">Persona moral</p><ol class="listPF"><li>Factura</li><li>Acta constitutiva</li><li>Constancia de situación fiscal actualizada</li><li>Comprobante de domicilio a nombre de la empresa en el estado de México</li><li>INE representante legal</li><li>Poder notarial del representante legal</li></ol><p class="notas"><span>Nota: </span>te recordamos que todos los autos a nombre de empresa, pagan tenencia sin importar el costo de la unidad.</p>`,
+    `<p class="titleVE">Alta de placas vehículos de otra entidad</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura</li><li>Comprobantes de pago por tenencia en el otro estado</li><li>Baja de placas de su estado anterior</li><li>INE o pasaporte nuevo propietario</li><li>Contrato de venta</li><li>INE anterior dueño</li><li>Comprobante de domicilio en EDOMEX nuevo propietario</li></ol><p class="personFM">Persona moral</p><ol class="listPF"><li>Factura</li><li>Refactura a nombre de la nueva empresa</li><li>Comprobantes de pago de tenencia</li><li>Baja de placas</li><li>Comprobante de domicilio</li><li>Acta constitutiva</li><li>Constancia de situación fiscal</li><li>Comprobante de domicilio</li><li>Poder notarial del representante legal</li><li>Identificación del representante legal</li></ol><p class="notas"><span>Nota: </span>todo vehículo usado que se emplaca por primera en Edomex, se paga tenencia.</p>`,
+    `<p class="titleVE">Alta de placas para motos nuevas</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura</li><li>Carta factura</li><li>INE o pasaporte del propietario</li><li>Comprobante de domicilio del estado de México a nombre del propietario</li></ol><p class="personFM">Persona moral</p><ol class="listPF"><li>Factura</li><li>Acta constitutiva</li><li>Constancia de situación fiscal</li><li>Comprobante de domicilio en el estado de Mexico a nombre de la empresa</li><li>Poder notarial del representante legal</li><li>Identificación del representante legal</li></ol><p class="notas"><span>Nota: </span>te recordamos que todos las motos a nombre de empresa, pagan tenencia sin importar el costo de la unidad.</p>`,
+    `<p class="titleVE">Alta de placas para motos con adeudos</p>`,
+    `<p class="titleVE">Alta de placas vehículos de carga</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura (la agencia está obligada a proporcionar la copia de la factura sin valor) </li><li>Carta factura</li><li>INE o pasaporte</li><li>CURP</li><li>Comprobante de domicilio en el Estado de México a nombre de la persona quien viene en la factura emitida por la agencia</li></ol><p class="personFM">Persona moral</p><ol class="listPF"><li>Factura</li><li>Acta constitutiva</li><li>Constancia de situación fiscal actualizada</li><li>Comprobante de domicilio a nombre de la empresa en el estado de México</li><li>Poder notarial del representante legal</li><li>Identificación del representante legal</li></ol>`,
+    `<p class="titleVE">Alta de placas federales</p>`,
+    `<p class="titleVE">Alta de placas vehículos clásicos</p><ol class="listPF"><li>Contar con el 90% de originalidad del auto para su validación ante IPN</li><li>Tener todo pagado por pago de tenencias AL AÑO en  CURSO</li><li>Factura ORIGINAL</li><li>Identificación del propietario</li><li>Comprobante de domicilio en el estado de México</li><li>Talón del SAT</li><li>Juego de Placas particulares para su baja correspondiente</li></ol><p class="notas"><span>Nota: </span>al pasar la prueba de inspección ante el IPN, este organismo emitirá un dictamen para la secretaría de movilidad y uno en original para usted y así iniciar el proceso de alta de placas de auto antiguo.</p>`,
+    `<p class="titleVE">Alta de placas de discapacidad</p><p class="personFM">Autos nuevos</p><ol class="listPF"><li>Tarjeta de gratuidad que emite el DIF de tu entidad</li><li>Factura</li><li>Identificación INE/PASAPORTE</li><li>Comprobante de domicilio en el Estado de México</li></ol><p class="personFM">Autos usados con placa particular</p><ol class="listPF"><li>Tarjeta de gratuidad que emite el DIF de tu entidad</li><li>Factura</li><li>Tarjeta de circulación vigente</li><li>Pago de tenencia año corriente</li><li>Identificación INE/PASAPORTE</li><li>Comprobante de domicilio a nombre del propietario en el Estado de México</li>    <li>Baja de placas o Placas del auto para su baja correspondiente</li></ol><p class="notas"><span>Nota: </span>placas de discapacidad no emite el gobierno a personas morales.</p>`,
+    `<p class="titleVE">Cambio de propietario</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura</li><li>INE comprador y vendedor</li><li>Contrato de compra venta</li><li>Comprobante de domicilio a nombre del nuevo propietario en el Estado de México</li><li>Tarjeta de circulación</li></ol><p class="notas"><span>Nota: </span>el cambio de propietario solo aplica en el nombre en la tarjeta de circulación, no se puede modificar datos del vehículo.</p><p class="personFM">Persona moral</p><ol class="listPF"><li>Factura</li><li>Refactura </li></ol><p class="notas">Documentos de empresa nuevo propietario </p><ol class="listPF"><li>Acta constitutiva</li><li>Constancia de situación fiscal</li><li>Comprobante de domicilio</li><li>Poder notarial del representante legal</li><li>Identificación del representante legal</li></ol><p class="notas"><span>Nota: </span>las facturas ya no se endosan debe de ser acompañado de una refactura.</p>`,
+    `<p class="titleVE">Refrendo vehicular</p>`,
+    `<p class="titleVE">Renovación de tarjeta de circulación</p>`,
+    `<p class="titleVE">Reemplacamiento</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura</li><li>Identificación</li><li>Comprobante de domicilio en el Estado de México</li><li>Tarjeta de circulación</li><li>Juego de placas</li></ol><p class="notas"><span>Nota: </span>el reemplacamiento aplica cada 5 años.</p><p class="personFM">Persona moral</p><ol class="listPF"><li>Factura</li><li>Tarjeta de circulación</li><li>Juego de placas</li></ol><p class="notas">Documentos de empresa</p><ol class="listPF"><li>Acta constitutiva</li><li>Constancia de situación fiscal</li><li>Comprobante de domicilio</li><li>Poder notarial del representante legal</li><li>Identificación del representante legal</li></ol>`,
+    `<p class="titleVE">Baja de placas</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura</li><li>Identificación</li><li>Comprobante de domicilio en el Estado de México</li><li>Tarjeta de circulación </li><li>Juego de placas</li></ol><p class="notas"><span>Nota: </span>baja por siniestro- carta del seguro solicitud, baja por robo-carta del seguro solicitud y acta de MP ratificada.</p><p class="personFM">Persona moral</p><ol class="listPF"><li>Factura</li><li>Acta constitutiva</li><li>Constancia de situación fiscal actualizada</li><li>Comprobante de domicilio a nombre de la empresa en el estado de México</li><li>INE representante legal</li><li>Poder notarial del representante legal</li></ol><p class="notas">Documentos de empresa</p><ol class="listPF"><li>Acta constitutiva</li><li>Constancia de situación fiscal</li><li>Comprobante de domicilio</li><li>Poder notarial del representante legal</li><li>Identificación del representante legal</li></ol>`,
+    `<p class="titleVE">Verificación vehicular</p><p class="personFM">Auto nuevo a gasolina</p><ol class="listPF"><li>Factura</li><li>Alta de placas</li><li>Tarjeta de circulación en original</li><li>INE del verificador</li><li>Cita del verificentro</li></ol><p class="personFM">Auto usado a gasolina</p><ol class="listPF"><li>Tarjeta de circulación vigente</li><li>Boleta de verificación anterior al semestre</li><li>Cita DEL VERIFICENTRO</li></ol><p class="notas"><span>Nota: </span>verificación para autos híbridos o eléctricos, se realiza cita en cualquier verificentro del EDOMEX y ahí te otorgan el holograma tipo exento por 8 años sin costo alguno.</p>`,
+    `<p class="titleVE">Permiso de carga tipo Antra y FAT</p><ol class="listPF"><li>Factura o tarjeta de circulación</li><li>Identificación para recibo</li><li>Saber qué tipo de carga será</li></ol>`,
+    `<p class="titleVE">Revista vehicular para transporte de carga</p>`,
+    `<p class="titleVE">Liberación en corralón</p><ol class="listPF"><li>Factura</li><li>INE infractor</li><li>Licencia de quien libera</li><li>Pago de multas</li></ol>`,
+    `<p class="titleVE">Acreditación de propiedad ante MP</p><ol class="listPF"><li>Factura</li><li>Documentos de la empresa</li></ol>`,
+    `<p class="titleVE">Traslados de autos</p>`,
+    `<p class="titleVE">Mensajería</p>`,
+    `<p class="titleVE">Validación automotriz</p><p class="notas">Si piensas en comprar un auto asegúrate de que todo esté en orden en cuanto su documentación se refiere haz tu solicitud vía correo yocuidomiauto@gmail.com, indícanos lugar y fecha de inspección. Te entregaremos un REPORTE vehicular donde veremos las siguiente INSPECCIONES:</p><ol class="listPF"><li>Validación de documentos (factura ante el SAT)</li><li>Validación del NIV en chasis o pared de fuego</li><li>Tarjeta de circulación</li><li>Certificación de no adeudos</li><li>Repuve</li><li>Si la unidad ya tuvo algún siniestro</li><li>Inspección física del auto y mecánica</li><li>Costo sugerido a la compra</li></ol>`,
+    `<p class="titleVE">Seguro para tu auto</p><ol class="listPF"><li>Costo variable</li><li>Factura</li><li>Código postal</li><li>Fotografías del auto</li></ol>`];
+    let arrayWindow3 = [`<p class="titleVE">Alta de placas vehículo nuevos a gasolina, híbridos y eléctricos</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura o copia de la factura sin valor</li><li>Carta factura</li><li>Xml de la factura</li><li>Póliza de seguro</li><li>INE del propietario</li><li>Comprobante de domicilio en Morelos</li></ol><p class="notas"><span>Nota: </span>en Morelos no se paga tenencia sin importar el valor del auto.</p><p class="personFM">Persona moral</p><ol class="listPF"><li>Factura</li><li>Xml de la factura</li><li>Póliza de seguro</li></ol><p class="notas">Documentos de empresa</p><ol class="listPF"><li>Acta constitutiva</li><li>Constancia de situación fiscal</li><li>Comprobante de domicilio</li><li>Poder notarial del representante legal</li><li>Identificación del representante legal</li></ol>`,
+    `<p class="titleVE">Alta de placas vehículos de otra entidad</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura de origen</li><li>Historial de facturas o contrato de compra venta</li><li>INE comprador y vendedor</li><li>Póliza de seguro</li><li>5 últimos pagos de tenencia</li><li>Baja de placas o juego de placas en físico</li></ol><p class="notas"><span>Nota: </span>Si el alta se hace con cambio de propietario, se debe de pagar el impuesto del 1.25% sobre valor del auto si la última factura es desde el 2020 al año en curso, se requiere el xml.</p><p class="personFM">Persona moral</p><ol class="listPF"><li>Factura de origen</li><li>Historial de facturas o contrato de compra venta</li><li>INE comprador y vendedor</li><li>Póliza de seguro</li><li>5 últimos pagos de tenencia</li><li>Baja de placas o juego de placas en físico</li></ol><p class="notas">Documentos de empresa</p><ol class="listPF"><li>Acta constitutiva</li><li>Constancia de situación fiscal</li><li>Comprobante de domicilio</li><li>Poder notarial del representante legal</li><li>Identificación del representante legal</li></ol><p class="notas"><span>Nota: </span>Si el alta se hace con cambio de propietario, se debe de pagar el impuesto del 1.25% sobre valor del auto si la última factura es desde el 2020 al año en curso, se requiere el xml.</p>`,
+    `<p class="titleVE">Alta de placas para motos nuevas</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura o copia de la factura sin valor</li><li>Carta factura</li><li>Xml de la factura</li><li>Póliza de seguro</li><li>INE del propietario</li><li>Comprobante de domicilio en Morelos</li></ol><p class="notas"><span>Nota: </span>en Morelos no se paga tenencia sin importar el valor del auto.</p><p class="personFM">Persona moral</p><ol class="listPF"><li>Factura</li><li>Xml de la factura</li><li>Póliza de seguro</li></ol><p class="notas">Documentos de empresa</p><ol class="listPF"><li>Acta constitutiva</li><li>Constancia de situación fiscal</li><li>Comprobante de domicilio</li><li>Poder notarial del representante legal</li><li>Identificación del representante legal</li></ol>`,
+    `<p class="titleVE">Alta de placas para motos con adeudos</p><ol class="listPF"><li>Factura origen</li><li>Historial de facturas o contrato de compra venta</li><li>INE comprador y vendedor</li><li>Póliza de seguro</li><li>Último pago realizado de tenencia</li><li>Placa de la unidad</li></ol><p class="notas">Documentos de empresa</p><ol class="listPF"><li>Acta constitutiva</li><li>Constancia de situación fiscal</li><li>Comprobante de domicilio</li><li>Poder notarial del representante legal</li><li>Identificación del representante legal</li></ol>`,
+    `<p class="titleVE">Alta de placas vehículos de carga</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura o copia de la factura sin valor</li><li>Carta factura</li><li>Xml de la factura</li><li>Póliza de seguro</li><li>INE del propietario</li><li>Comprobante de domicilio en Morelos</li></ol><p class="personFM">Persona moral</p><ol class="listPF"><li>Factura</li><li>Xml de la factura</li><li>Póliza de seguro</li></ol><p class="notas">Documentos de empresa</p><ol class="listPF"><li>Acta constitutiva</li><li>Constancia de situación fiscal</li><li>Comprobante de domicilio</li><li>Poder notarial del representante legal</li><li>Identificación del representante legal</li></ol>`,
+    `<p class="titleVE">Alta de placas federales</p>`,
+    `<p class="titleVE">Alta de placas vehículos clásicos</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura</li><li>Factura de origen</li><li>Historial de facturas endosos y/o contrato de compra ventas</li><li>Póliza de seguro</li><li>INE del propietario</li><li>5 últimos pagos de tenencia</li><li>Baja de placas o juego de placas</li><li>Tarjeta de circulación</li></ol><p class="notas"><span>Nota: </span>si el auto no aparece en repuve, se puede hacer el alta.</p>`,
+    `<p class="titleVE">Alta de placas de discapacidad</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura</li><li>Factura de origen</li><li>Historial de facturas endosos y/o contrato de compra ventas</li><li>Póliza de seguro</li><li>INE del propietario</li><li>5 últimos pagos de tenencia</li><li>Baja de placas o juego de placas</li><li>Tarjeta de circulación</li></ol>`,
+    `<p class="titleVE">Cambio de propietario</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura</li><li>Historial de facturas o contrato de compra venta</li><li>INE comprador y vendedor</li><li>Póliza de seguro</li><li>5 últimos pagos de refrendo en Morelos</li><li>Comprobante de domicilio nuevo propietario en Morelos</li></ol><p class="personFM">Persona moral</p><ol class="listPF"><li>Factura</li><li>Historial de facturas o contrato de compra venta</li><li>Póliza de seguro</li><li>5 últimos pagos de refrendo en Morelos</li><li>Comprobante de domicilio nuevo propietario en Morelos</li></ol><p class="notas">Documentos de empresa</p><ol class="listPF"><li>Acta constitutiva</li><li>Constancia de situación fiscal</li><li>Comprobante de domicilio</li><li>Poder notarial del representante legal</li><li>Identificación del representante legal</li></ol><p class="notas"><span>Notas: </span>en Morelos se cobra impuesto por adquisición de vehículos del 1.25% sobre valor del auto si la ultima refactura es desde el 2020 al año en curso, se requiere el xml no aplica para venta entre particulares.</p>`,
+    `<p class="titleVE">Refrendo vehicular</p><ol class="listPF"><li>INE propietario</li><li>Poliza de seguro</li><li>Tarjeta de circulación</li></ol>`,
+    `<p class="titleVE">Renovación de tarjeta de circulación</p><p class="personFM">Persona física</p><ol class="listPF"><li>Tarjeta de circulación año anterior</li><li>Póliza de seguro</li><li>INE del propietario</li><li>Comprobante de domicilio</li></ol><p class="personFM">Persona moral</p><ol class="listPF"><li>Tarjeta de circulación año anterior</li><li>Póliza de seguro</li><li>Documentos de empresa</li><li>Poder notarial del representante legal</li><li>INE representante legal</li><li>Comprobante de domicilio en Morelos</li></ol>`,
+    `<p class="titleVE">Reemplacamiento</p>`,
+    `<p class="titleVE">Baja de placas</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura de origen</li><li>Historial de facturas o contrato</li><li>Tarjeta de circulación vigente y actual</li><li>INE propietario</li><li>Juego de placas en físico</li><li>Comprobante de domicilio en Morelos</li></ol><p class="notas"><span>Nota: </span>para baja por siniestro es necesario la carta solicitud del seguro baja por robo, es necesario presentar el acta de MP ratificada.</p><p class="personFM">Persona moral</p><ol class="listPF"><li>Factura</li><li>Tarjeta de circulación vigente y actual</li><li>Póliza de seguro</li><li>Juego de placas</li></ol><p class="notas">Documentos de empresa</p><ol class="listPF"><li>Acta constitutiva</li><li>Constancia de situación fiscal</li><li>Comprobante de domicilio</li><li>Poder notarial del representante legal</li><li>Identificación del representante legal</li></ol>`,
+    `<p class="titleVE">Verificación vehicular</p><p class="personFM">Auto nuevo</p><ol class="listPF"><li>Copia factura</li><li>Copia del alta de placas </li><li>Tarjeta de circulación en original</li><li>Cita del verificentro</li><li>INE del propietario</li><li>Comprobante de domicilio en Morelos</li></ol><p class="personFM">Auto usado</p><ol class="listPF"><li>Tarjeta de circulación en original y vigente</li><li>Papeleta anterior de verificación en original</li><li>Cita del verificentro</li></ol>`,
+    `<p class="titleVE">Permiso de carga tipo Antra y FAT</p><ol class="listPF"><li>Factura o tarjeta de circulación</li><li>Identificación para recibo</li><li>Saber qué tipo de carga será</li></ol>`,
+    `<p class="titleVE">Revista vehicular para transporte de carga</p>`,
+    `<p class="titleVE">Liberación en corralón</p><ol class="listPF"><li>Factura</li><li>INE infractor</li><li>Licencia de quien libera</li><li>Pago de multas</li></ol>`,
+    `<p class="titleVE">Acreditación de propiedad ante MP</p><ol class="listPF"><li>Factura</li><li>Documentos de la empresa</li></ol>`,
+    `<p class="titleVE">Traslados de autos</p>`,
+    `<p class="titleVE">Mensajería</p>`,
+    `<p class="titleVE">Validación automotriz</p><p class="notas">Solicitud de correo</p>`,
+    `<p class="titleVE">Seguro para tu auto</p><ol class="listPF"><li>Costo variable</li><li>Factura</li><li>Código postal</li><li>Fotografías del auto</li></ol>`];
+    let arrayWindowOriginal = [`<p class="titleVE">Alta de placas vehículo nuevo</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura</li><li>Carta factura si el vehículo esta a crédito </li><li>INE</li><li>Comprobante de domicilio en la entidad</li></ol><p class="personFM">Persona moral</p><ol class="listPF"><li>Factura</li><li>Carta factura si el vehículo esta a crédito </li><li>Acta constitutiva</li><li>Poder notarial</li><li>INE representante legal</li><li>Comprobante de domicilio</li><li>RFC</li></ol><p class="notas"><span>Notas: </span>Recuerda que para no generar pago de tenencia, debes de realizar tu alta dentro de los primeros 15 dias una vez emitida la factura.</p>`,
+    `<p class="titleVE">Alta de vehículo de otra entidad</p><p class="personFM">Persona física</p><ol class="listPF"><li>Baja de placas del estado en original(en su defecto se realiza un pago de bajas administrativas)</li><li>5 ultimas tenencias ó refrendos pagados</li><li>Factura</li><li>INE del dueño del vehículo</li><li>Comprobante de domicilio en la entidad</li></ol><p class="personFM">Persona moral</p><ol class="listPF"><li>Acta constitutiva</li><li>INE representante legal</li><li>Poder notarial</li><li>Comprobante de domicilio (empresa)</li><li>RFC (empresa)</li></ol><p class="notas"><span>Notas: </span>Tienes hasta el 31 de marzo de cada año para ser acreedor al subsidio de tenencia en la CDMX</p>`,
+    `<p class="titleVE">Alta de placas para motocicleta</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura</li><li>Carta factura si el vehículo esta a crédito</li><li>INE</li><li>Comprobante de domicilio en la entidad</li></ol><p class="personFM">Persona moral</p><ol class="listPF"><li>Factura</li><li>Carta factura si el vehículo esta a crédito</li><li>Acta constitutiva</li><li>Poder notarial</li><li>INE representante legal</li><li>Comprobante de domicilio</li></ol><p class="notas"><span>Notas: </span>Para no pagar tenencia debes emplacar dentro de los primeros 15 y no rebasar de los $ 250,000.</p>`,
+    `<p class="titleVE">Placas para vehículos de carga y remolques</p><p class="personFM">Requisitos</p><ol class="listPF"><li>Factura</li><li>Acta constitutiva</li><li>Poder notarial</li><li>INE representante legal</li><li>RFC empresa</li><li>Comprobante de domicilio</li><li>Póliza de seguro</li></ol><p class="notas"><span>Notas: </span>Te recordamos que en CDMX, debes de realizar tu revista anual. Tanto documental como Físico-mecánica.</p>`,
+    `<p class="titleVE">Cambio de propietario</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura</li><li>INE comprador y vendedor</li><li>Contrato de compra-venta</li><li>Seis ultimas tenencias según modelo del auto</li><li>Comprobante de domicilio</li><li>Tarjeta de circulación</li></ol><p class="personFM">Persona moral</p><ol class="listPF"><li>Factura</li><li>Refactura en su caso</li><li>Seis ultimas tenencias según modelo</li><li>Comprobante de domicilio</li><li>RFC de la empresa</li><li>Acta constitutiva</li><li>Poder notarial</li><li>INE representante legal</li><li>Tarjeta de circulación</li></ol><p class="notas"><span>Notas: </span>En el cambio de propietario, es el cambio de nombre nn la tarjeta de circulación, no podemos hacer modificación de datos del vehículo.</p>`,
+    `<p class="titleVE">Cambio de propietario</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura</li><li>INE comprador y vendedor</li><li>Contrato de compra-venta</li><li>Seis ultimas tenencias según modelo del auto</li><li>Comprobante de domicilio</li><li>Tarjeta de circulación</li></ol><p class="personFM">Persona moral</p><ol class="listPF"><li>Factura</li><li>Refactura en su caso</li><li>Seis ultimas tenencias según modelo</li><li>Comprobante de domicilio</li><li>RFC de la empresa</li><li>Acta constitutiva</li><li>Poder notarial</li><li>INE representante legal</li><li>Tarjeta de circulación</li></ol><p class="notas"><span>Notas: </span>En el cambio de propietario, es el cambio de nombre nn la tarjeta de circulación, no podemos hacer modificación de datos del vehículo.</p>`,
+    `<p class="titleVE">Holograma tipo exento</p><p class="personFM">Persona física</p><p class="notas">INE dueño Tarjeta de circulación Factura o carta factura vigente Bitácora de servicio del auto Tenencias pagadas</p><p class="personFM">Persona moral</p><ol class="listPF"><li>Tarjeta de circulación</li><li>Factura o carta factura vigente</li><li>Bitácora de servicio del auto</li><li>Tenencias pagadas</li><li>Acta constitutiva</li><li>INE representante legal</li><li>Poder notarial</li><li>RFC de la empresa</li></ol><p class="notas"><span>Notas: </span>El trámite se realiza en 48 horas y el holograma te ampara por 7 años.</p>`,
+    `<p class="titleVE">Baja de placas</p><p class="personFM">Persona física</p><ol class="listPF"><li>Factura</li><li>INE dueño</li><li>Comprobante de domicilio</li><li>Ultimas 6 tenencias pagadas</li><li>Carta seguro (según el caso)</li><li>Tarjeta de circulación</li><li>Placas del vehículo</li><li>Acta de M.P. si es por Robo</li></ol><p class="personFM">Persona moral</p><ol class="listPF"><li>Factura</li><li>Refactura en su caso</li><li>Ultimas 6 tenencias pagadas</li><li>Carta seguro (según el caso)</li><li>Placas del vehículo</li><li>Tarjeta de circulación</li><li>Acta constitutiva</li><li>INE representante legal</li><li>Poder notarial</li><li>Acta de M.P. si es por Robo</li></ol><p class="notas"><span>Notas: </span>Entregamos una baja en original con su pago, firma y sello correspondiente.</p>`,
+    `<p class="titleVE">¿Tu placa no está registrada en la secretaria de finanzas?</p><p class="notas">Debes acudir a la tesorería tributaria con tu documentación en original del vehículo así como tus documentos por alta. Nosotros te apoyamos para hacerlo de una manera correcta</p><p class="notas"><span>Notas: </span>Entregamos una baja en original con su pago, firma y sello correspondiente.</p>`,
+    `<p class="titleVE">Revista vehicular transporte de carga y mercantíl</p><p class="personFM">Requisitos</p><ol class="listPF"><li>Factura</li><li>Tarjeta de circulación vigente</li><li>Póliza de seguro vigente</li><li>Tenencia año en curso</li><li>Acreditación de revista vehicular año anterior</li><li>RFC empresa</li><li>Acta constitutiva</li><li>INE apoderado legal</li><li>Comprobante de domicilio</li><li>Pago de derechos del año en curso</li></ol><p class="notas"><span>Notas: </span>Recuerda que año con año debes realizar la revista aquí en CDMX de acuerdo al calendario emitido en la gaceta del gobierno.</p>`,
+    `<p class="titleVE">Placas y permisos federales para vehículos de carga</p><p class="personFM">Requisitos</p><ol class="listPF"><li>Alta de la empresa ante la SCT</li><li>Placas federales</li><li>Permiso de carga federal</li><li>Licencia federal</li></ol><p class="notas"><span>Notas: </span>Para la obtención de placas debes contar con un alta ante la Secretaria de Comunicaciones y Transportes y otorgar un poder a nuestro favor para representarte en la misma.</p>`,
+    `<p class="titleVE">Placas para vehículos clásicos</p><p class="personFM">Requisitos</p><ol class="listPF"><li>Vehículo con 30 años de antigüedad</li><li>90% de originalidad</li><li>Inspección ante el IPN</li><li>Factura</li><li>Tarjetón</li><li>INE</li><li>Comprobante de domicilio</li><li>6 ultimas tenencias pagadas</li></ol><p class="notas"><span>Notas: </span>Las placas de auto clásico deben estar acompañadas de un holograma del IPN el cual se coloca en el parabrisas de tu auto.</p>`,
+    `<p class="titleVE">Placas para autos para personas con capacidades diferentes</p><p class="personFM">Requisitos</p><ol class="listPF"><li>Constancia de discapacidad emitida por el DIF.</li><li>INE</li><li>Comprobante de domicilio</li><li>Factura</li><li>6 ultimas tenencias pagadas</li></ol><p class="notas"><span>Notas: </span>Los requisitos para tramitar el dictamen ante el DIF son: INE-comprobante de domicilio-acta de nacimiento-CURPfotografía infantil y un certificado médico.</p>`,
+    `<p class="titleVE">¿Quieres verificar tu auto y no tienes tiempo?</p><p class="notas">Acudimos a tu domicilio particular o laboral mientras tu trabajas o realizas tus pendientes nosotros lo llevamos a verificar.</p>`,
+    `<p class="titleVE">¿Te llevó la grúa?</p><p class="personFM">Nosotros te apoyamos para la recuperación de tu auto</p><p class="notas">Debes presentar la documentación: Licencia vigente, INE vigente, tenencias pagadas, No tener fotomultas, tarjeta de circulación vigente y factura.</p>`,
+    `<p class="titleVE">Permiso para circular sin placas</p><p class="notas">Emitimos permiso del Estado de Guerrero el cual te permite circular sin placas en todo el territorio nacional, valido por 30 día.</p><p class="notas"><span>Notas: </span>Este permiso NO circula los días viernes y el quinto sábado del mes.</p>`,
+    `<p class="titleVE">Permisos tipo ANTRA para carga</p><ol class="listPF"><li>Factura o carta factura</li><li>INE dueño o representante legal</li><li>Color de la unidad</li><li>Hasta 8 toneladas</li></ol><p class="notas"><span>Notas: </span>Si cuentas con un automóvil con placas de particular, este permiso te ampara para poder transportar carga.</p>`,
+    `<p class="titleVE">Acta ante ministerio público</p><p class="notas">¿Perdiste tus placas o tarjeta de circulación de tu auto? Es necesario levantar tu acta por extravió ante el Ministerio Publico para poder realizar tu trámite para su reposición.</p>`,
+    `<p class="titleVE">Aviso de compra-venta</p><p class="notas">Si vas a vender tu auto, asegúrate de dar aviso a la autoridad competente para deslindarte de toda responsabilidad por si el nuevo dueño no realiza el cambio de propietario en tiempo y forma.</p>`,
+    `<p class="titleVE">Fotomultas</p><p class="personFM">Aplica para vehículos con placas de: CDMX, EDOMEX y MORELOS</p><p class="notas">Obtén el 80% de descuento en foto multas de la CDMX Recuerda que para verificar en el Estado de México o Morelos, es necesario NO tener adeudos por multas o infracciones.</p>`,
+    `<p class="titleVE">Aseguramos tu patrimonio con compañías de seguro</p><p class="notas">Nuestras alianzas comerciales con las diversas compañías de seguros, nos posicionan como la mejor opción en contratación de seguros de auto soygestocarseguros@gmail.com</p>`,
+    `<p class="titleVE">¿Piensas vender tu auto?</p><p class="notas">Existen formas para garantizar la compra-venta de tu auto. No arriesgues tu patrimonio! Nosotros te asesoramos. Realiza una compra-venta segura.</p>`,
+    `<p class="titleVE">Traslado de vehículos en el interior de la república</p><p class="notas">Te apoyamos en el traslado de tu unidad en toda la republica mexicana. Lo recogemos en tu domicilio y lo entregamos en donde nos indiques. Llámanos y solicita tu cotización!</p>`,
+    `<p class="titleVE">Administramos tu flota vehicular</p><p class="notas">Programamos y damos seguimiento a los servicios de mantenimiento preventivos y correctivos de las unidades de su flota para evitar retrasos en su operación y evites parar la operación dando siempre soluciones fiables.</p>`,
+    `<p class="titleVE">Realizamos auditorias vehiculares</p><p class="notas">Los pagos que hace tu empresa: ¿Son los correctos? ¿La documentación de tu flotilla está completa? Y los costos con tus proveedores ¿Como están? ¿Tus ODC se cumplen en tiempo y forma?</p>`,
+    `<p class="titleVE">Conferencias a colaboradores</p><p class="notas">Disminuye la siniestralidad de tu flotilla de autos. Dale la oportunidad a tus colaboradores de conocer y aprender un poco mas!</p>`,
+    `<p class="titleVE">Certificación de conductores</p><p class="notas">Permitenos ofrecer el apoyo a tus choferes en conocimiento viales. Como Proceder en caso de siniestro. Conocimiento del reglamento de transito con una capacitacion constante.</p><p class="notas">Haremos pruebas de conocimiento del vehiculo y procesos que te permitan saber que tus choferes estan bien capacitados.</p>`,
+    `<p class="titleVE">Convenios</p><p class="personFM">Realizamos 2 tipos de convenios para las empresas: Convenio-colaboradores y convenio flotilla.</p><ol class="listPF"><li>A la firma de convenio en tu empresa, te ofrecemos un mejor costo sin la necesidad de salir de tu ambiente laboral.</li><li>Te evitamos grandes filas y tramites engorrosos y lo más importante, el ausentarte a trabajar.</li><li>En Gestocar estamos comprometidos a ayudarte a mejorar tu calidad de vida.</li></ol>`,
+    `<p class="titleVE">Alta de placas vehículo hibrido o eléctrico</p><p class="personFM">Requisitos</p><ol class="listPF"><li>Factura</li><li>Identificación oficial</li><li>Comprobante de domicilio</li></ol>`,
+    `<p class="titleVE">Verificación</p><p class="personFM">Requisitos</p><ol class="listPF"><li>Vehículo nuevo</li><li>Factura</li><li>Alta de placas</li><li>Tarjeta de circulación</li><li>Identificación del propietario</li></ol>`,
+    `<p class="titleVE">Liberación en corralón</p><p class="personFM">Requisitos</p><ol class="listPF"><li>Factura</li><li>Tenencia ejercicio fiscal anterior</li><li>INE del propietario</li><li>Tarjeta de circulación vigente</li><li>No fotomultas</li></ol>`,
+    `<p class="titleVE">Acreditación de propiedad</p><p class="personFM">Requisitos</p><ol class="listPF"><li>Factura de la unidad</li><li>INE del propietario</li><li>Comprobante de domicilio del propietario</li></ol>`,
+    `<p class="titleVE">Servicio de mensajería</p><p class="personFM">Requisitos</p><ol class="listPF"><li>Especificaciones de la paqueteria</li></ol>`,
+    `<p class="titleVE">Seguro de auto</p><p class="personFM">Requisitos</p><ol class="listPF"><li>Factura de la unidad</li><li>Código postal de residencia del propietario</li></ol>`,
+    `<p class="titleVE">Constancia de adeudos para licitación</p><p class="personFM">Requisitos</p><ol class="listPF"><li>RFC de la empresa</li><li>Acta constitutiva</li><li>Comprobante de domicilio</li><li>Registro estatal de contribuyentes</li></ol>`,
+    `<p class="titleVE">Investigación por cambio de estado</p><p class="personFM">Requisitos. (Cualquiera de los siguientes)</p><ol class="listPF"><li>Factura</li><li>Tarjeta de circulación</li><li>Baja de placas</li><li>Pago de tenencia</li></ol>`,
+    `<p class="titleVE">Mensajería</p><p class="personFM">Requisitos</p><ol class="listPF"><li>Hacer la solicitud</li><li>Convenio con gestocar</li></ol>`,
+    `<p class="titleVE">Traslado de automóvil</p><p class="personFM">Requisitos</p><ol class="listPF"><li>Tarjeta de circulación vigente</li><li>Seguro de auto vigente</li><li>Imagen del auto</li></ol>`,
+    `<p class="titleVE">Alta de placas federales</p><p class="personFM">Requisitos</p><ol class="listPF"><li>Registro ante la SCT</li><li>Factura</li><li>Poliza de seguro con RC de $3.000.000 tres millones</li><li>Verificación de humo</li><li>Poder notariado a favor de Gestocar</li><li>Documentos de la empresa</li></ol>`]
+
+    
+    R1.addEventListener('change',()=>{
+      estadoElec = R1.value;
+      arrayA = asignaArreglo(estadoElec);
+      renderT(arrayA);
+    });
+
+    R2.addEventListener('change',()=>{
+      estadoElec = R2.value;
+      arrayA = asignaArreglo(estadoElec);
+      renderT(arrayA);
+    });
+
+    R3.addEventListener('change',()=>{
+      estadoElec = R3.value;
+      arrayA = asignaArreglo(estadoElec);
+      renderT(arrayA);
+    });
+
+
+
+    const asignaArreglo = (est='')=>{
+      switch (est) {
+        case "ciudad_de_mexico":
+          indicesAEliminar = [3,9,11];
+          arrayA  = tramites.filter((elemento, indice) => !indicesAEliminar.includes(indice));
+          arrayAA = arrayWindow1.filter((elemento, indice) => !indicesAEliminar.includes(indice));
+        break;
+        case "estado_de_mexico":
+          indicesAEliminar = [3,5,9,15,18,19];
+          arrayA = tramites.filter((elemento, indice) => !indicesAEliminar.includes(indice));
+          arrayAA = arrayWindow2.filter((elemento, indice) => !indicesAEliminar.includes(indice));
+        break;
+        case "morelos":
+          indicesAEliminar = [5,10,11,15,18,19];
+          arrayA = tramites.filter((elemento, indice) => !indicesAEliminar.includes(indice));
+          arrayAA = arrayWindow3.filter((elemento, indice) => !indicesAEliminar.includes(indice));
+        break;
+        default:
+          arrayA = tramites
+          arrayAA = arrayWindow1
+        break;
+      } 
+      return(arrayA)
+    }
+    
+    const renderT = (arrayX = []) => {
+      let hhtl = `<table class='tt'>`;
+      for (let i = 0; i < arrayX.length; i++) {
+        hhtl += 
+          `<tr>
+            <td class="ancho-70">${(i+1).toString() + ' - '+ arrayX[i]}</td>
+            <td class="ancho-30"><button onclick="abrirVentana('modal1',${i})">Ver Requisitos</button></td>
+          </tr>`;
+      }
+      hhtl = hhtl + '</table>'
+      enlista.innerHTML = hhtl;
+    }
+
+    const abrirVentana=(modalId,idVentana)=> {
+      const modal   = document.getElementById(modalId);
+      let ventana = document.getElementById('contentVE');
+
+      modal.style.display = 'flex';
+      ventana.innerHTML = arrayAA[idVentana];
+
+      ajustaBoton();
+    }
+
+    const cerrarVentana=(modalId)=> {
+      const modal = document.getElementById(modalId);
+      modal.style.display = 'none';
+    }
+
+    const ajustaBoton=()=>{
+      let ventana = document.getElementById('contentVE');
+      let boton   = document.querySelector('.cerrar');
+      let windowWidth = window.innerWidth;
+      let windowHeight = window.innerHeight;
+      let ventanaHeight = ventana.clientHeight; 
+      
+      let cuenta = (windowHeight - ventanaHeight)/2;
+      let vw = ((cuenta / windowWidth) * 100)-1;
+      console.log(vw)
+      boton.style.top = vw + 'vw';
+    }
+</script>
+
+</body>
+</html>
+    
+    

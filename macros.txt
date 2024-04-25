@@ -1,0 +1,85 @@
+Option Explicit
+Sub Combinar()
+    Dim shtHoja1 As Worksheet
+    'Declaramos las variables que seria las columnas del excel
+    Dim strFecha As String
+    Dim strvisitadora As String
+    Dim strEstado As String
+    Dim strUnidad As String
+    Dim strNombre As String
+    Dim strCargo As String
+    Dim strSTATUS As String
+    Dim strcuando As String
+    Dim strOBSERVACIONES As String
+    Dim filaInicial As Long
+    'Creamos nuestras variables de tipo objeto
+    Dim objPPT As Object
+    Dim objPres As Object
+    Dim objSld As Object
+    Dim objShp As Object
+    'Llamamos la hoja en donde bamos a obtener los datos y se lo asignamos al objeto shtHoja1
+    Set shtHoja1 = Worksheets("Hoja1")
+        
+    Set objPPT = CreateObject("Powerpoint.Application")
+    objPPT.Visible = True
+    'Buscamos la plantilla que en este caso se llama constancia la cual se encuetra en el mismo directorio que el archivo de excel'
+    'y se lo asignamos al objeto objPres
+    Set objPres = objPPT.presentations.Open(ThisWorkbook.Path & "\PLANTILLA.pptx")
+    'una vez asignada la plantilla Constnacias al objeto objPres guardamos el objeto con el nombre de combinados.pptx
+    objPres.SaveAs ThisWorkbook.Path & "\combinados.pptx"
+    'Esta variable nos indicara donde iniciar a obtener los datos, en este caso a partir de la fila 2'
+    filaInicial = 2
+    'Creamos un ciclo , la instrucion es que, mientras en la variable filainicial y columna 1 sea diferente (<>) a campo vacio hacer los siguiente'
+    Do While shtHoja1.Cells(filaInicial, 1) <> ""
+        
+        'obtenemos el dato de la filainicial, columna 1 y se lo asignamos a la variable strFecha'
+        strFecha = shtHoja1.Cells(filaInicial, 1)
+        'obtenemos el dato de la filainicial, columna 2 y se lo asignamos a la variable strTaller'
+        strvisitadora = shtHoja1.Cells(filaInicial, 2)
+        'obtenemos el dato de la filainicial, columna 3 y se lo asignamos a la variable strTallerista'
+        strEstado = shtHoja1.Cells(filaInicial, 3)
+        
+        strUnidad = shtHoja1.Cells(filaInicial, 4)
+        
+        strNombre = shtHoja1.Cells(filaInicial, 5)
+        
+        strCargo = shtHoja1.Cells(filaInicial, 6)
+        
+        strSTATUS = shtHoja1.Cells(filaInicial, 7)
+        
+        strcuando = shtHoja1.Cells(filaInicial, 8)
+        
+        strEstado = shtHoja1.Cells(filaInicial, 10)
+        
+        'del objeto objPres (combinados.pptx) duplicamos la primera diapositiva o slide y se lo asignamos al objSld
+        Set objSld = objPres.slides(1).Duplicate
+        'ahora hara un recorrido de las formas que contenga la diapositiva, supongo que los cuadros de texto y demas tipos de objetos que se puedan insertar
+        For Each objShp In objSld.Shapes
+            'si la forma es un cuadro de texto
+            If objShp.HasTextFrame Then
+                'si la forma cuadro de texto tiene texto'
+                If objShp.TextFrame.HasText Then
+                    'reemplazar el texto"<fecha>" del cuadro de texto por lo que contiene la variable strNombre y asi sucesivamente
+                    objShp.TextFrame.TextRange.Replace "<Fecha>", strFecha
+                    objShp.TextFrame.TextRange.Replace "<visitadora>", strvisitadora
+                    objShp.TextFrame.TextRange.Replace "<Unidad>", strUnidad
+                    objShp.TextFrame.TextRange.Replace "<Nombre>", strNombre
+                    objShp.TextFrame.TextRange.Replace "<Cargo>", strCargo
+                    objShp.TextFrame.TextRange.Replace "<STATUS>", strSTATUS
+                    objShp.TextFrame.TextRange.Replace "<cuando>", strcuando
+                    objShp.TextFrame.TextRange.Replace "<cuando>", strcuando
+                    objShp.TextFrame.TextRange.Replace "<OBSERVACIONES>", strOBSERVACIONES
+                End If
+            End If
+        Next
+        'con esta instruccion nos aseguramos de pasar a la siguiente fila de la hoja de excel'
+        filaInicial = filaInicial + 1
+    Loop
+    'ahora borramos la diapositiva que nos sirvio como plantilla'
+    objPres.slides(1).Delete
+    'guardamos los cambio que se hicieron en la diapositiva "combinados.pptx'
+    objPres.Save
+    'cerramos la diapositiva'
+    objPres.Close
+    
+End Sub

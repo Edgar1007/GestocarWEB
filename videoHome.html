@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video para incrustar</title>
+    <style>
+        .contenedorVideote {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            overflow: hidden; /* Para recortar el contenido que se desborda */
+        }
+        .videoNT {
+            width: 90%;
+            object-fit:contain;
+            object-position: center; /* Centra el contenido del video */
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedorVideote">
+        <video autoplay class="videoNT">
+            <source src="https://v2.gestocar.mx/wp-content/uploads/2024/03/Video-Home.mp4" type="video/mp4">
+            Tu navegador no admite la reproducción de video.
+        </video>
+    </div>
+</body>
+</html>

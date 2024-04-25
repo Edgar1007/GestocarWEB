@@ -1,0 +1,7 @@
+            Escritorio         Tablet           Movil
+
+Titulos      2.2vw       
+
+Titulo Int   2vw
+
+Letra        1.4vw

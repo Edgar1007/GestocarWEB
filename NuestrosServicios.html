@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Sans&display=swap">
+    <title>Nuestros Servicios</title>
+    <style>
+        @media (min-width:1025px){
+            .herramientas {
+                background-color:#E8E8E8; 
+                width:99.2%;
+                height:auto;
+                margin: 0;
+                padding: 0;
+            }
+            .opciones{
+                margin: 0;
+                padding: 0;
+                display:flex;
+                width: 100%;
+                list-style: none;
+                justify-content: center;
+                align-items: center;
+                transform: skew(-20deg);
+            }
+            .opciones img{
+                width: 6vw;
+                height: auto;
+                transform: skew(20deg);
+                padding: 0 1vw 0 1vw;
+                color: #E7632E;
+            }
+            .option{
+                width: 20%;
+                cursor: pointer;
+                background-color: #ffffff;
+                margin: 0 1vw 0 1vw;
+                padding: 2vw 0 2vw 0;
+            }
+            .option span{
+                color: rgb(0, 0, 0);
+                font-size: 1.4vw;
+                font-weight: 400;
+                font-family: 'Inria Sans', sans-serif;
+                transform: skew(5deg); 
+            }
+            .option-active span{
+                color: rgb(255, 255, 255);
+                font-size: 1.4vw;
+                font-weight: 400;
+                font-family: 'Inria Sans', sans-serif;
+                transform: skew(5deg); 
+            }
+            .option-active{
+                background: #E7632E;
+            }
+            .contents{
+                width: 100%; 
+            }
+            .contentNS{
+                display: none;
+            }
+            .content-active{
+                display: flex;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            .left{
+                width: 65%;
+                margin: 0;
+                padding: 0 0 0 0;
+            }
+            .left img{
+                width: 100%;
+                height: auto;
+                padding: 0;
+            }
+            .right{
+                width: 35%;
+                margin: 0;
+                padding: 4% 0 0 7%;
+            }
+            .right p{
+                color: rgb(0, 0, 0);
+                font-size: 1.6vw;
+                font-weight: 400;
+                font-family: 'Inria Sans', sans-serif;
+                padding: 0;
+                margin: 0;
+            }
+            .right li{
+                color: rgb(0, 0, 0);
+                font-size: 1.4vw;
+                font-weight: 400;
+                font-family: 'Inria Sans', sans-serif;
+                padding: 0 0 0 0vw;
+                margin: 0;
+            }
+            .right ul{
+                margin: 0;
+                padding: 0;
+            }
+            .opt{
+                padding: 0 0 0 2vw;
+                margin: 0;
+            }
+        }
+        @media (min-width:768px) and (max-width:1024px){
+            .herramientas {
+                background-color:#E8E8E8; 
+                width:98%;
+                height:auto;
+                margin: 0;
+                padding: 0;
+            }
+            .opciones{
+                margin: 0;
+                padding: 0;
+                display:flex;
+                width: 100%;
+                list-style: none;
+                justify-content: center;
+                align-items: center;
+                transform: skew(-20deg);
+            }
+            .opciones img{
+                width: 6vw;
+                height: auto;
+                transform: skew(20deg);
+                padding: 0 1vw 0 1vw;
+                color: #E7632E;
+            }
+            .option{
+                width: 22%;
+                cursor: pointer;
+                background-color: #ffffff;
+                margin: 0 1vw 0 1vw;
+                padding: 2vw 0 2vw 0;
+            }
+            .option span{
+                color: rgb(0, 0, 0);
+                font-size: 2vw;
+                font-weight: 400;
+                font-family: 'Inria Sans', sans-serif;
+                transform: skew(5deg); 
+            }
+            .option-active span{
+                color: rgb(255, 255, 255);
+                font-size: 2vw;
+                font-weight: 400;
+                font-family: 'Inria Sans', sans-serif;
+                transform: skew(5deg); 
+            }
+            .option-active{
+                background: #E7632E;
+            }
+            .contents{
+                width: 100%; 
+            }
+            .contentNS{
+                display: none;
+            }
+            .content-active{
+                display: flex;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0 0 4vw 0;
+            }
+            .left{
+                width: 55%;
+                margin: 0;
+                padding: 0 0 0 0;
+            }
+            .left img{
+                width: 100%;
+                height: auto;
+                padding: 0;
+            }
+            .right{
+                width: 45%;
+                margin: 0;
+                padding: 4% 0 0 7%;
+            }
+            .right p{
+                color: rgb(0, 0, 0);
+                font-size: 2vw;
+                font-weight: 400;
+                font-family: 'Inria Sans', sans-serif;
+                padding: 0;
+                margin: 0;
+                line-height: 2vw;
+            }
+            .right li{
+                color: rgb(0, 0, 0);
+                font-size: 2vw;
+                font-weight: 400;
+                font-family: 'Inria Sans', sans-serif;
+                padding: 0 0 0 0vw;
+                margin: 0;
+                line-height: 2.2vw;
+            }
+            .right ul{
+                margin: 0;
+                padding: 0;
+            }
+            .opt{
+                padding: 0 0 0 2vw;
+                margin: 0;
+            }
+        }
+        @media (max-width:767px){
+            .herramientas {
+                background-color:#E8E8E8; 
+                width:97vw;
+                height:auto;
+                margin: 0;
+                padding: 0;
+            }
+            .opciones{
+                margin: 0;
+                padding: 0;
+                width: auto;
+                height: auto;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: auto;
+                gap: 1px;
+                list-style: none;
+                padding-left: 5vw;
+                transform: skew(-20deg);
+            }
+            .opciones img{
+                width: 10vw;
+                height: auto;
+                transform: skew(20deg);
+                padding: 0 1vw 0 1vw;
+                color: #E7632E;
+            }
+            .option{
+                width: 40vw;
+                cursor: pointer;
+                background-color: #ffffff;
+                margin: 0 1vw 0 1vw;
+                padding: 2vw 0 2vw 0;
+                text-align: center;
+            }
+            .option span{
+                color: rgb(0, 0, 0);
+                font-size: 3.5vw;
+                font-weight: 400;
+                font-family: 'Inria Sans', sans-serif;
+                transform: skew(5deg); 
+            }
+            .option-active span{
+                color: rgb(255, 255, 255);
+                font-size: 3.5vw;
+                font-weight: 400;
+                font-family: 'Inria Sans', sans-serif;
+                transform: skew(5deg); 
+            }
+            .option-active{
+                background: #E7632E;
+            }
+            .contents{
+                width: 100%; 
+            }
+            .contentNS{
+                display: none;
+            }
+            .content-active{
+                display: grid;
+                grid-template-columns: repeat(1, 1fr);
+                grid-template-rows: auto;
+                gap: 1px;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0 0 4vw 0;
+            }
+            .left{
+                width: 100%;
+                margin: 0;
+                padding: 0 0 0 0;
+            }
+            .left img{
+                width: 100%;
+                height: auto;
+                padding: 0;
+            }
+            .right{
+                width: 100%;
+                margin: 0;
+                padding: 4% 0 0 15%;
+            }
+            .right p{
+                color: rgb(0, 0, 0);
+                font-size: 4vw;
+                font-weight: 400;
+                font-family: 'Inria Sans', sans-serif;
+                padding: 0;
+                margin: 0;
+                line-height: 4vw;
+            }
+            .right li{
+                color: rgb(0, 0, 0);
+                font-size: 4vw;
+                font-weight: 400;
+                font-family: 'Inria Sans', sans-serif;
+                padding: 0 0 0 0vw;
+                margin: 0;
+                line-height: 4vw;
+            }
+            .right ul{
+                margin: 0;
+                padding: 0;
+            }
+            .opt{
+                padding: 0 0 0 2vw;
+                margin: 0;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="herramientas">
+        <ul class="opciones">
+            <li id="particulares"class="option option-active"><img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/Vector-10.png" alt="Particulares" id="imgE1"><span>Particulares</span></li>
+            <li id="empresas"    class="option"><img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/Vector-5.png" alt="Particulares" id="imgE2"><span>Empresas</span></li>
+            <li id="autosCarga"  class="option"><img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/Vector-7.png" alt="Particulares" id="imgE3"><span>Autos de Carga</span></li>
+            <li id="SCT"         class="option"><img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/Vector-4.png" alt="Particulares" id="imgE4"><span>SCT</span></li>
+        </ul>
+        <div class="contents">
+            <div id="content1" class="contentNS content-active">
+                <div class="left">
+                    <img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/Component-23.png" alt="C1">
+                </div>
+                <div class="right">
+                    <p>Servicios disponibles:</p>
+                    <br>
+                    <div class="opt">
+                        <ul>
+                            <li>ALTA DE PLACAS VEHÍCULOS NUEVOS</li>
+                            <li>ALTA DE PLACAS VEHÍCULOS USADOS</li>
+                            <li>ALTA DE PLACAS MOTOS NUEVAS</li> 
+                            <li>BAJA DE PLACAS</li>
+                            <li>CAMBIO DE PROPIETARIO</li>
+                            <li>RENOVACIÓN DE TARJETA DE CIRCULACIÓN</li>
+                            <li>ALTA DE AUTOS CLÁSICOS</li>
+                            <li>ALTA PLACAS DISCAPACIDAD</li>
+                            <li>VERIFICACIÓN DE AUTOS</li>
+                            <li>SEGURO PARA AUTOS</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="content2" class="contentNS">
+                <div class="left">
+                    <img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/Component-26.png" alt="C2">
+                </div>
+                <div class="right">
+                    <p>Servicios disponibles:</p>
+                    <br>
+                    <div class="opt">
+                        <ul>
+                            <li>VERIFICACIÓN DE AUTOS</li>
+                            <li>LIBERACIÓN DE CORRALÓN</li>
+                            <li>ACREDITACIÓN DE PROPIEDAD</li>
+                            <li>TRANSLADOS DE AUTOS</li>
+                            <li>CONSTANCIA DE ADEUDOS PARA LICITACIÓN</li>
+                            <li>IMPUGNACION DE MULTAS</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="content3" class="contentNS">
+                <div class="left">
+                    <img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/Component-24.png" alt="C3">
+                </div>
+                <div class="right">
+                    <p>Servicios disponibles:</p>
+                    <br>
+                    <div class="opt">
+                        <ul>
+                            <li>ALTA DE PLACAS</li>
+                            <li>ALTA REMOLQUES</li>
+                            <li>REVISTA VEHICULAR CDMX</li>
+                            <li>CAMBIO DE PROPIETARIO</li>
+                            <li>REMPLACAMIENTO</li>
+                            <li>BAJA DE PLACAS</li>
+                            <li>PERMISO DE CARGA</li>
+                            <li>ANTRA-FAT</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="content4" class="contentNS">
+                <div class="left">
+                    <img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/Component-25.png" alt="C4">
+                </div>
+                <div class="right">
+                    <p>Servicios disponibles:</p>
+                    <br>
+                    <div class="opt">
+                        <ul>
+                            <li>REGISTRO COMO PERMISIONARIO</li>
+                            <li>PERMISOS DE CARGA PARA PLACA ESTATAL</li>
+                            <li>VERIFICACIÓN DE BAJA EMISIONES</li>
+                            <li>VERIFICACIÓN FISICO-MECANICA</li>
+                            <li>REPOSICIÓN DE PLACA</li>
+                            <li>REPOSICIÓN DE TARJETA</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const particulares = document.getElementById('particulares');
+        const empresas     = document.getElementById('empresas');
+        const autosCarga   = document.getElementById('autosCarga');
+        const SCT          = document.getElementById('SCT');
+        const content1  = document.getElementById('content1');
+        const content2  = document.getElementById('content2');
+        const content3  = document.getElementById('content3');
+        const content4  = document.getElementById('content4');
+        const icono1    = document.getElementById('imgE1');
+        const icono2    = document.getElementById('imgE2');
+        const icono3    = document.getElementById('imgE3');
+        const icono4    = document.getElementById('imgE4');
+
+        let choose = 1;
+
+        const changeOption = ()=>{
+            if( choose == 1){
+                particulares.classList.value = 'option option-active',
+                content1.classList.value = 'contentNS content-active',
+                icono1.src = "https://v2.gestocar.mx/wp-content/uploads/2024/03/Vector-10.png"
+            }
+            else{
+                particulares.classList.value = 'option',
+                content1.classList.value = 'contentNS',
+                icono1.src = "https://v2.gestocar.mx/wp-content/uploads/2024/03/Vector-2.png"
+            }
+            if( choose == 2){
+                empresas.classList.value = 'option option-active',
+                content2.classList.value = 'contentNS content-active',
+                icono2.src = "https://v2.gestocar.mx/wp-content/uploads/2024/03/Vector-9.png"
+            }
+            else{
+                empresas.classList.value = 'option',
+                content2.classList.value = 'contentNS',
+                icono2.src = "https://v2.gestocar.mx/wp-content/uploads/2024/03/Vector-5.png"
+            }
+            if( choose == 3){
+                autosCarga.classList.value = 'option option-active',
+                content3.classList.value = 'contentNS content-active',
+                icono3.src = "https://v2.gestocar.mx/wp-content/uploads/2024/03/Vector-11.png"
+            }
+            else{
+                autosCarga.classList.value = 'option',
+                content3.classList.value = 'contentNS',
+                icono3.src = "https://v2.gestocar.mx/wp-content/uploads/2024/03/Vector-7.png"
+            }
+            if( choose == 4){
+                SCT.classList.value = 'option option-active',
+                content4.classList.value = 'contentNS content-active',
+                icono4.src = "https://v2.gestocar.mx/wp-content/uploads/2024/03/Vector-8-1.png"
+            }
+            else{
+                SCT.classList.value = 'option',
+                content4.classList.value = 'contentNS',
+                icono4.src = "https://v2.gestocar.mx/wp-content/uploads/2024/03/Vector-4.png"
+            }
+            
+        }
+                
+        particulares.addEventListener('click',()=>{
+            choose = 1;
+            changeOption();
+        });
+        empresas.addEventListener('click',()=>{
+            choose = 2;
+            changeOption();
+        });
+        autosCarga.addEventListener('click',()=>{
+            choose = 3;
+            changeOption();
+        })
+        SCT.addEventListener('click',()=>{
+            choose = 4;
+            changeOption();
+        })
+    </script>
+</body>
+</html>

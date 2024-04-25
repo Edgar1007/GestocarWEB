@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Sans&display=swap">
+  <title>Solicitar información de folio</title>
+  <style>
+    @media (min-width:1025px){
+      .containerSF {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto;
+        gap: 1px;
+        background-color: rgb(255, 255, 255);
+        border: none;
+        border-radius: 2vh; 
+        box-shadow: 0 0 10px 5px rgba(231, 99, 46, 0.5); 
+      }
+      .itemSF {
+        display: flex;
+        align-items: center;
+        position: relative;
+        padding: 2.5vw 2vw 2.5vw 2vw;
+      }
+      .itemSF input{
+        width: auto;
+        height: 1vw;
+        border: none;
+        font-family: 'Inria Sans', sans-serif;
+        font-size: 1vw;
+        font-weight: 300;
+      }
+      .itemSF button {
+        width: 80%;
+        height: 100%;
+        background-color: #E7632E;
+        border: none;
+        border-radius: 1vh;
+        color: white;
+        font-family: 'Inria Sans', sans-serif;
+        font-size: 1vw;
+        font-weight: 300;
+        padding: 1.5vw 0 1.5vw 0;
+      }
+      .imgSF{
+        padding: 0 1.5vw 0 1.5vw;
+      }
+      .imgSF img{
+        width: 2vw;
+        height: auto;
+      }
+      .emergent{
+        display: none;
+        color: #E7632E;
+        font-family: 'Inria Sans', sans-serif;
+        font-size: 1vw;
+        font-weight: 300;
+        justify-content: center;
+      }
+    }
+    @media (min-width:768px) and (max-width:1024px){
+      .containerSF {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto;
+        gap: 1px;
+        background-color: rgb(255, 255, 255);
+        border: none;
+        border-radius: 2vh; 
+        box-shadow: 0 0 10px 5px rgba(231, 99, 46, 0.5); 
+      }
+      .itemSF {
+        display: flex;
+        align-items: center;
+        position: relative;
+        padding: 2.5vw 0vw 2.5vw 0vw;
+      }
+      .itemSF input{
+        width: 17vw;
+        height: 1vw;
+        border: none;
+        font-family: 'Inria Sans', sans-serif;
+        font-size: 1.9vw;
+        font-weight: 300;
+      }
+      .itemSF button {
+        width: 80%;
+        height: 100%;
+        background-color: #E7632E;
+        border: none;
+        border-radius: 1vh;
+        color: white;
+        font-family: 'Inria Sans', sans-serif;
+        font-size: 2vw;
+        font-weight: 300;
+        padding: 1.5vw 0 1.5vw 0;
+      }
+      .imgSF{
+        padding: 0 1vw 0 1vw;
+      }
+      .imgSF img{
+        width: 3vw;
+        height: auto;
+      }
+      .emergent{
+        display: none;
+        color: #E7632E;
+        font-family: 'Inria Sans', sans-serif;
+        font-size: 2vw;
+        font-weight: 300;
+        justify-content: center;
+      }
+    }
+    @media (max-width:767px){
+      .containerSF {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: auto;
+        gap: 1px;
+        background-color: rgb(255, 255, 255);
+        border: none;
+        border-radius: 2vh; 
+        box-shadow: 0 0 10px 5px rgba(231, 99, 46, 0.5); 
+      }
+      .itemSF {
+        display: flex;
+        align-items: center;
+        position: relative;
+        padding: 2.5vw 2vw 2.5vw 2vw;
+      }
+      .itemSF input{
+        width: 45vw;
+        height: 1.5vw;
+        border: none;
+        font-family: 'Inria Sans', sans-serif;
+        font-size: 4.5vw;
+        font-weight: 300;
+      }
+      .itemSF button {
+        width: 80%;
+        height: 100%;
+        background-color: #E7632E;
+        border: none;
+        border-radius: 1vh;
+        color: white;
+        font-family: 'Inria Sans', sans-serif;
+        font-size: 4.5vw;
+        font-weight: 300;
+        padding: 1.5vw 0 1.5vw 0vw;
+      }
+      .imgSF{
+        padding: 0 1.5vw 0 1.5vw;
+      }
+      .imgSF img{
+        width: 4vw;
+        height: auto;
+      }
+		  .special{
+			  padding-left:10vw;
+      }
+      .emergent{
+        display: none;
+        color: #E7632E;
+        font-family: 'Inria Sans', sans-serif;
+        font-size: 4.5vw;
+        font-weight: 300;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="containerSF">
+  <div class="itemSF">
+    <div class="imgSF">
+      <img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/fi-rr-document.png" alt="folio">
+    </div>
+    <input type="text" id="stringInput" name="stringInput" placeholder="Número de folio">
+  </div>
+  <div class="itemSF">
+    <div class="imgSF">
+      <img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/fi-rr-envelope.png" alt="email">
+    </div>
+    <input type="email" id="emailInput" name="emailInput" placeholder="Correo electrónico">
+  </div>
+  <div class="itemSF special">
+    <button id="send">CONSULTAR</button>
+  </div>
+</div>
+<p class="emergent" id="emergent">Por favor, asegúrese de haber introducido el número de folio y el correo electrónico</p>
+<script>
+
+  const send = document.getElementById("send");
+  let folio;
+  let email;
+  let urll
+  let urlBase = "https://sistema.gestocar.mx/estatusFolio?folio=";
+  
+  send.addEventListener('click',()=>{
+    folio = document.getElementById('stringInput').value;
+    email = document.getElementById('emailInput').value;
+    url = urlBase + folio + '&op=' + email;
+    if(folio && email){
+      document.location.href = url
+    }
+    else{
+      let emergent = document.getElementById("emergent");
+      emergent.style.display = 'flex';
+      throw('error','Por favor, asegúrese de haber introducido el número de folio y el correo electrónico.')
+      
+    }
+    
+  });
+</script>
+
+</body>
+</html>

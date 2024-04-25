@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  	<meta charset="UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Sans&display=swap">
+  	<title>Columnas con Imágenes y Texto</title>
+  	<style>
+      @media (min-width:1025px){
+        .containerV {
+          background-color: rgb(66, 233, 10);
+          display: grid;
+          grid-template-columns: repeat(5, 1fr); 
+          margin: 0;
+          padding: 0 0 0 4vw;
+          position: relative;
+          grid-gap: 2vw;
+          justify-content: center;
+        }
+        .columnV {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: #E8E8E8;
+          position: relative;
+          overflow: hidden;
+          width: 15vw;
+          height: 14vh;
+          transform: skew(-20deg);
+        }
+        .textV {
+          color: black;
+          font-size: 1.2vw;
+          font-weight: 400;
+          font-family: 'Inria Sans', sans-serif;
+          text-align: center;
+          transform: skew(20deg);
+        }
+        .image-containerV {
+            position: relative;
+            overflow: hidden;
+        }
+        .image-containerV img {
+            width: 2vw;
+            height: auto;
+            transform: skew(20deg);
+        }
+      }
+      @media (max-width:1024px) and (min-width:768px){
+        .containerV {
+          background-color: white;
+          display: grid;
+          grid-template-columns: repeat(5, 1fr); 
+          margin: 0;
+          padding: 0;
+          position: relative;
+          grid-gap: 2vw;
+          justify-content: center;
+        }
+        .columnV {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: #E8E8E8;
+          position: relative;
+          overflow: hidden;
+          width: 15vw;
+          height: 6vw;
+          transform: skew(-20deg);
+        }
+        .textV {
+          color: black;
+          font-size: 2vw;
+          font-weight: 400;
+          font-family: 'Inria Sans', sans-serif;
+          text-align: center;
+          transform: skew(20deg);
+        }
+        .image-containerV {
+            position: relative;
+            overflow: hidden;
+        }
+        .image-containerV img {
+            width: 2.5vw;
+            height: auto;
+            transform: skew(20deg);
+        }
+		  .H{
+			  display:none;
+		  }
+      }
+      @media (max-width:767px){
+        .containerV {
+          background-color: white;
+          display: grid;
+          grid-template-columns: repeat(1, 1fr); 
+          margin: 0;
+          padding: 0 0 0 15vw;
+          grid-gap: 5vw;
+          justify-content: center;
+        }
+        .columnV {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: #E8E8E8;
+          overflow: hidden;
+          width: 70vw;
+          height: 9vw;
+          transform: skew(-20deg);
+        }
+        .textV {
+          color: black;
+          font-size: 5vw;
+          font-weight: 400;
+          font-family: 'Inria Sans', sans-serif;
+          text-align: center;
+          transform: skew(20deg);
+        }
+        .image-containerV {
+            position: relative;
+            overflow: hidden;
+        }
+        .image-containerV img {
+            width: 4vw;
+            height: auto;
+            transform: skew(20deg);
+        }
+      }
+	  </style>
+</head>
+<body>
+
+<div class="containerV">
+  <div class="columnV">
+    <div class="image-containerV">
+      <img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/Group-1.png" alt="Imagen 1">
+    </div>&nbsp;&nbsp;
+    <div class="textV">Honestidad</div>&nbsp;&nbsp;
+    <div class="image-containerV">
+      <img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/Vector-1.png" alt="Imagen 2" class="H">
+    </div>
+  </div>
+  <div class="columnV">
+    <div class="image-containerV">
+      <img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/Group-2.png" alt="Imagen 3">
+    </div>&nbsp;&nbsp;
+    <div class="textV">Servicio</div>&nbsp;&nbsp;
+    <div class="image-containerV">
+      <img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/Vector-1.png" alt="Imagen 4" class="H">
+    </div>
+  </div>
+  <div class="columnV">
+    <div class="image-containerV">
+      <img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/Group-3.png" alt="Imagen 5">
+    </div>&nbsp;&nbsp;
+    <div class="textV">Responsables</div>&nbsp;&nbsp;
+    <div class="image-containerV">
+      <img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/Vector-1.png" alt="Imagen 6" class="H">
+    </div>
+  </div>
+  <div class="columnV">
+    <div class="image-containerV">
+      <img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/Group-4.png" alt="Imagen 7">
+    </div>&nbsp;&nbsp;
+    <div class="textV">Excelencia</div>&nbsp;&nbsp;
+    <div class="image-containerV">
+      <img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/Vector-1.png" alt="Imagen 8" class="H">
+    </div>
+  </div>
+  <div class="columnV">
+    <div class="image-containerV">
+      <img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/Group-5.png" alt="Imagen 9">
+    </div>&nbsp;&nbsp;
+    <div class="textV">Respeto</div>&nbsp;&nbsp;
+    <div class="image-containerV">
+      <img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/Vector-1.png" alt="Imagen 10" class="H">
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

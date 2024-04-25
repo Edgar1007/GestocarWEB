@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Sans&display=swap">
+<title>Columnas</title>
+<style>
+  @media (min-width:1025px){
+    .containerC {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      height: 70vh;
+      width: 100%;
+    }
+    .columnaIzquierdaC {
+      flex: 1;
+      background-color: #F6F7F8;
+      padding: 0;
+      margin: 0;
+      height: 100%;
+    }
+    .HDS{
+      color: #707070;
+      font-family: 'Inria Sans', sans-serif;
+      font-size: 1.4vw;
+    }
+    .columnaDerechaC {
+      flex: 1;
+      background-color: #FFFFFF;
+      padding: 0;
+      margin: 0;
+      align-items: end;
+    }
+    .carrazo{
+      display: flex;
+      align-items: end;
+      height: 82%;
+    }
+    .carrazo img{
+      width: 100%;
+      height: auto;
+    }
+    .preciosTotal{
+      display: flex;
+      align-items: end;
+      width: auto;
+      height: 18%;
+      padding: 3% 0 0 10%;
+      margin: 0 !important;
+    }
+    .totalCot{
+      padding: 0.5vw 1vw 0.5vw 1vw;
+      margin: 0 !important;
+      color: #000000;
+      font-family: 'Inria Sans', sans-serif;
+      font-size: 1.6vw;
+      background-color: #F6F7F8;
+    }
+    .totalCot2{
+      padding: 0;
+      margin: 0 !important;
+      color: #000000;
+      font-family: 'Inria Sans', sans-serif;
+      font-size: 1.2vw;
+    }
+    .totalCot3{
+      padding: 0;
+      margin: 0 !important;
+      color: #ffffff;
+      font-family: 'Inria Sans', sans-serif;
+      font-size: 1vw;
+      background-color: #E7632E;
+    }
+    .cotizacion{
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      padding: 2vw 0 2vw 0;
+      margin: 0;
+    }
+    .cotizacion p{
+      padding: 0;
+      margin: 0 !important;
+      color: #ffffff;
+      font-family: 'Inria Sans', sans-serif;
+      font-size: 1.5vw;
+      background-color: #E7632E;
+    }
+    .totalCan{
+      padding: 1.4vw 1.5vw 1.4vw 1.5vw;
+      margin: 0 !important;
+      color: #ffffff;
+      font-family: 'Inria Sans', sans-serif;
+      font-size: 3vw;
+      background-color: #E7632E;
+    }
+    .etikets{
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+      justify-content: center;
+    }
+    .etk{
+      background-color: white;
+      text-align: center;
+      width: 35%;
+      padding: 0.4vw 1vw 0.4vw 1vw;
+      margin: 0;
+      transform: skew(-20deg);
+      cursor: pointer;
+    }
+    .etk p{
+      transform: skew(20deg);
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.4vw;
+      color: #000000;
+      margin: 0;
+    }
+    .etkACT{
+      background-color: #E7632E;
+    }
+    .etkACT p{
+      transform: skew(20deg);
+      font-family: 'Poppins', sans-serif;
+      color: #FFFFFF  ;
+      font-size: 1.4vw;
+      margin: 0;
+    }
+    .folder{
+      display: flex;
+      width: 100%;
+      height: 55vh;
+      padding: 2vw 0 0 0;
+	    overflow-y: scroll;
+    }
+    .pestanaC{
+      display: none;
+    }
+    .pestanaACTC{
+      display: block;
+      background-color:#F6F7F8;
+      width: 100%;
+      height: 100%;
+      padding: 0 0 0 0vw;
+    }
+    .elegirEstado .opcionEstado input[type="radio"]{
+      display: none;
+    }
+    .elegirTramit .opcionEstado input[type="checkbox"]{
+      display: none;
+    }
+    .elegirEstado .opcionEstado label,
+    .elegirTramit .opcionEstado label{
+      color: #000000;
+      font-family: 'Inria Sans', sans-serif;
+      font-size: 1.2vw;
+      padding: 0.8vw  0.5vw 1vw 1vw;
+      display: inline-block;
+      cursor: pointer;
+      -webkit-transition: all 0.3s ease;
+      -o-transition: all 0.3s ease;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .opcionEstado label:hover,
+    .opcionEstado label:hover{
+      background: rgba(231,99,46,0.1);
+    }
+    .elegirEstado .opcionEstado label:before{
+      content: "";
+      width: 1vw;
+      height: 1vw;
+      display: inline-block;
+      background:none;
+      border:3px solid #E7632E;
+      border-radius: 50%;
+      position:relative;
+      left: 40vw;
+    }
+    .elegirTramit .opcionEstado label:before{
+      content: "";
+      width: 1vw;
+      height: 1vw;
+      display: inline-block;
+      background:none;
+      border:3px solid #E7632E;
+      border-radius: 3%;
+      position:relative;
+      left: 40vw;
+    }
+
+    /* .elegirEstado .opcionEstado input[type="radio"]:checked + label,
+    .elegirTramit .opcionEstado input[type="checkbox"]:checked + label{
+      background: #E7632E;
+      border-radius: 2px;
+      color: #ffffff;
+    } */
+
+    .elegirEstado .opcionEstado input[type="radio"]:checked + label:before{
+      content: "";
+      width: 1vw;
+      height: 1vw;
+      display: inline-block;
+      background:#E7632E;
+      border:3px solid #E7632E;
+      border-radius: 50%;
+      position:relative;
+      left: 40vw;
+    }
+    .elegirTramit .opcionEstado input[type="checkbox"]:checked + label:before{
+      content: "";
+      width: 1vw;
+      height: 1vw;
+      display: inline-block;
+      background:#E7632E;
+      border:3px solid #E7632E;
+      border-radius: 3%;
+      position:relative;
+      left: 40vw;
+    }
+  }
+  @media (min-width:768px) and (max-width:1024px){
+    .containerC {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      grid-template-rows: auto;
+      grid-template-columns:auto;
+      gap: 1px;
+      margin: 0;
+      padding: 0;
+      height: 70vh;
+    }
+    .columnaIzquierdaC {
+      background-color: #F6F7F8;
+      padding: 0;
+      margin: 0;
+      height: 100%;
+    }
+    .HDS{
+      color: #707070;
+      font-family: 'Inria Sans', sans-serif;
+      font-size: 1.4vw;
+		display:none;
+    }
+    .columnaDerechaC {
+      background-color: #FFFFFF;
+      padding: 0;
+      margin: 0;
+      align-items: end;
+    }
+    .carrazo{
+      display: flex;
+      align-items: end;
+      height: 82%;
+    }
+    .carrazo img{
+      width: 100%;
+      height: auto;
+    }
+    .preciosTotal{
+      display: flex;
+      align-items: end;
+      width: auto;
+      height: 18%;
+      padding: 3% 0 0 15%;
+      margin: 0 ;
+    }
+    .totalCot{
+      padding: 0.5vw 1vw 0.5vw 1vw;
+      margin: 0 !important;
+      color: #000000;
+      font-family: 'Inria Sans', sans-serif;
+      font-size: 3vw;
+      background-color: #F6F7F8;
+    }
+    .totalCot2{
+      padding: 0;
+      margin: 0 !important;
+      color: #000000;
+      font-family: 'Inria Sans', sans-serif;
+      font-size: 2.2vw;
+    }
+    .totalCot3{
+      padding: 0;
+      margin: 0 !important;
+      color: #ffffff;
+      font-family: 'Inria Sans', sans-serif;
+      font-size: 2vw;
+      background-color: #E7632E;
+    }
+	.cotizacion{
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      padding: 2vw 0 2vw 0;
+      margin: 0;
+    }
+    .cotizacion p{
+      padding: 0;
+      margin: 0 !important;
+      color: #ffffff;
+      font-family: 'Inria Sans', sans-serif;
+      font-size: 2vw;
+      background-color: #E7632E;
+    }
+    .totalCan{
+      padding: 1.4vw 1.5vw 1.4vw 1.5vw;
+      margin: 0 !important;
+      color: #ffffff;
+      font-family: 'Inria Sans', sans-serif;
+      font-size: 6vw;
+      background-color: #E7632E;
+    }
+    .etikets{
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+      justify-content: center;
+    }
+    .etk{
+      background-color: white;
+      text-align: center;
+      width: 35%;
+      padding: 0.4vw 1vw 0.4vw 1vw;
+      margin: 0;
+      transform: skew(-20deg);
+      cursor: pointer;
+    }
+    .etk p{
+      transform: skew(20deg);
+      font-family: 'Poppins', sans-serif;
+      font-size: 2.4vw;
+      color: #000000;
+      margin: 0;
+    }
+    .etkACT{
+      background-color: #E7632E;
+    }
+    .etkACT p{
+      transform: skew(20deg);
+      font-family: 'Poppins', sans-serif;
+      color: #FFFFFF  ;
+      font-size: 2.4vw;
+      margin: 0;
+    }
+    .folder{
+      display: flex;
+      padding: 0;
+	    margin: 0;
+	    overflow-y: scroll;
+	    height:30vw;
+    }
+    .pestanaC{
+      display: none;
+    }
+    .pestanaACTC{
+      display: block;
+      background-color:#F6F7F8;
+      width: 100%;
+      height: 100%;
+      padding: 0 0 0 0vw;
+    }
+	  .elegirEstado{
+		  padding-left:25vw;
+		  padding-top:3vw;
+	  }
+	  .elegirTramit{
+		  padding-left:15vw;
+		  padding-top:3vw;
+	  }
+    .elegirEstado .opcionEstado input[type="radio"]{
+      display: none;
+    }
+    .elegirTramit .opcionEstado input[type="checkbox"]{
+      display: none;
+    }
+    .elegirEstado .opcionEstado label,
+    .elegirTramit .opcionEstado label{
+      color: #000000;
+      font-family: 'Inria Sans', sans-serif;
+      font-size: 2.2vw;
+      padding: 0.8vw  0.5vw 1vw 1vw;
+      display: inline-block;
+      cursor: pointer;
+      -webkit-transition: all 0.3s ease;
+      -o-transition: all 0.3s ease;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .opcionEstado label:hover,
+    .opcionEstado label:hover{
+      background: rgba(231,99,46,0.1);
+    }
+    .elegirEstado .opcionEstado label:before{
+      content: "";
+      width: 2vw;
+      height: 2vw;
+      display: inline-block;
+      background:none;
+      border:3px solid #E7632E;
+      border-radius: 50%;
+      position:relative;
+      left: 40vw;
+    }
+    .elegirTramit .opcionEstado label:before{
+      content: "";
+      width: 2vw;
+      height: 2vw;
+      display: inline-block;
+      background:none;
+      border:3px solid #E7632E;
+      border-radius: 3%;
+      position:relative;
+      left: 67vw;
+    }
+    .elegirEstado .opcionEstado input[type="radio"]:checked + label:before{
+      content: "";
+      width: 2vw;
+      height: 2vw;
+      display: inline-block;
+      background:#E7632E;
+      border:3px solid #E7632E;
+      border-radius: 50%;
+      position:relative;
+      left: 40vw;
+    }
+    .elegirTramit .opcionEstado input[type="checkbox"]:checked + label:before{
+      content: "";
+      width: 2vw;
+      height: 2vw;
+      display: inline-block;
+      background:#E7632E;
+      border:3px solid #E7632E;
+      border-radius: 3%;
+      position:relative;
+      left: 67vw;
+    }
+  }
+  @media (max-width:767px){
+    .containerC {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      grid-template-rows: auto;
+      grid-template-columns:auto;
+      gap: 1px;
+      margin: 0;
+      padding: 0;
+      height: 100vw;
+    }
+    .columnaIzquierdaC {
+      background-color: #F6F7F8;
+      padding: 0;
+      margin: 0;
+      height: 100%;
+    }
+    .HDS{
+      color: #707070;
+      font-family: 'Inria Sans', sans-serif;
+      font-size: 1.4vw;
+	    display:none;
+    }
+    .columnaDerechaC {
+      background-color: #FFFFFF;
+      padding: 15vw 0 0 0;
+      margin: 0;
+    }
+    .carrazo{
+      display: flex;
+      align-items: end;
+      height: 82%;
+    }
+    .carrazo img{
+      width: 100%;
+      height: auto;
+    }
+    .preciosTotal{
+      display: block;
+      height: 40%;
+      padding: 0 0 0 0;
+      margin: 0;
+    }
+    .totalCot{
+      padding: 0.5vw 1vw 0.5vw 5vw;
+      margin: 0 0 0 12.5vw !important;
+      color: #000000;
+      font-family: 'Inria Sans', sans-serif;
+      font-size: 5vw;
+      background-color: #F6F7F8;
+		  width:75%
+    }
+    .totalCot2{
+      padding: 0;
+      margin: 0 !important;
+      color: #000000;
+      font-family: 'Inria Sans', sans-serif;
+      font-size: 3.5vw;
+    }
+    .totalCot3{
+      padding: 0 0 0 5vw;
+      margin: 0 0 0 12.5vw!important;
+      color: #ffffff;
+      font-family: 'Inria Sans', sans-serif;
+      font-size: 3.5vw;
+      background-color: #E7632E;
+		  width:30%;
+    }
+	  .cotizacion{
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      padding: 2vw 0 2vw 0;
+      margin: 0;
+    }
+    .cotizacion p{
+      padding: 0;
+      margin: 0 !important;
+      color: #ffffff;
+      font-family: 'Inria Sans', sans-serif;
+      font-size: 3vw;
+      background-color: #E7632E;
+    }
+    .totalCan{
+      padding: 1.4vw 1.5vw 1.4vw 5vw;
+      margin: 0 0 0 12.5vw !important;
+      color: #ffffff;
+      font-family: 'Inria Sans', sans-serif;
+      font-size: 9vw;
+      background-color: #E7632E;
+		  width:50%;
+    }
+    .etikets{
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+      justify-content: center;
+    }
+    .etk{
+      background-color: white;
+      text-align: center;
+      width: 35%;
+      padding: 0.4vw 1vw 0.4vw 1vw;
+      margin: 0;
+      transform: skew(-20deg);
+      cursor: pointer;
+    }
+    .etk p{
+      transform: skew(20deg);
+      font-family: 'Poppins', sans-serif;
+      font-size: 4vw;
+      color: #000000;
+      margin: 0;
+    }
+    .etkACT{
+      background-color: #E7632E;
+    }
+    .etkACT p{
+      transform: skew(20deg);
+      font-family: 'Poppins', sans-serif;
+      color: #FFFFFF  ;
+      font-size: 4vw;
+      margin: 0;
+    }
+    .folder{
+      display: flex;
+      padding: 0;
+	    margin: 0;
+	    overflow-y: scroll;
+	    height:50vw;
+    }
+    .pestanaC{
+      display: none;
+    }
+    .pestanaACTC{
+      display: block;
+      background-color:#F6F7F8;
+      width: 100%;
+      height: 100%;
+      padding: 0 0 0 0vw;
+    }
+	  .elegirEstado{
+		  padding-left:25vw;
+		  padding-top:3vw;
+	  }
+	  .elegirTramit{
+		  padding-left:2vw;
+		  padding-top:3vw;
+	  }
+	  .elegirTramit .opcionEstado label{
+		  width:90vw;
+	  }
+    .elegirEstado .opcionEstado input[type="radio"]{
+      display: none;
+    }
+    .elegirTramit .opcionEstado input[type="checkbox"]{
+      display: none;
+    }
+    .elegirEstado .opcionEstado label,
+    .elegirTramit .opcionEstado label{
+      color: #000000;
+      font-family: 'Inria Sans', sans-serif;
+      font-size: 4vw;
+      padding: 0.8vw  0.5vw 1vw 1vw;
+      display: inline-block;
+      cursor: pointer;
+      -webkit-transition: all 0.3s ease;
+      -o-transition: all 0.3s ease;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .opcionEstado label:hover,
+    .opcionEstado label:hover{
+      background: rgba(231,99,46,0.1);
+    }
+    .elegirEstado .opcionEstado label:before{
+      content: "";
+      width: 4vw;
+      height: 4vw;
+      display: inline-block;
+      background:none;
+      border:3px solid #E7632E;
+      border-radius: 50%;
+      position:relative;
+      left: 40vw;
+    }
+    .elegirTramit .opcionEstado label:before{
+      content: "";
+      width: 4vw;
+      height: 4vw;
+      display: inline-block;
+      background:none;
+      border:3px solid #E7632E;
+      border-radius: 3%;
+      position:relative;
+      left: 90vw;
+    }
+    .elegirEstado .opcionEstado input[type="radio"]:checked + label:before{
+      content: "";
+      width: 4vw;
+      height: 4vw;
+      display: inline-block;
+      background:#E7632E;
+      border:3px solid #E7632E;
+      border-radius: 50%;
+      position:relative;
+      left: 40vw;
+    }
+    .elegirTramit .opcionEstado input[type="checkbox"]:checked + label:before{
+      content: "";
+      width: 4vw;
+      height: 4vw;
+      display: inline-block;
+      background:#E7632E;
+      border:3px solid #E7632E;
+      border-radius: 3%;
+      position:relative;
+      left: 90vw;
+    }
+  }
+  
+</style>
+</head>
+<body>
+  <div class="containerC">
+    <div class="columnaIzquierdaC">
+      <p class="HDS">Fácil, rapido y eficiente, cotiza los servicios que necesites.</p>
+      <ul class="etikets">
+        <li id="ciudad"    class="etk etkACT"><p>Ciudad</p></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li id="servicios" class="etk"><p>Servicios</p></li>
+      </ul>
+      <div class="folder">
+
+        <div id="listas" class="pestanaC pestanaACTC">
+
+          <div class="elegirEstado">
+            <div class="opcionEstado">
+              <input type="radio" id="CDMX" name="state" value="CDMX">
+              <label for="CDMX">Ciudad de México</label>
+            </div>
+            <div class="opcionEstado">
+                <input type="radio" id="EdoMex" name="state" value="EdoMex">
+                <label for="EdoMex">Estado de México</label>
+            </div>
+            <div class="opcionEstado">
+                <input type="radio" id="Mor" name="state" value="Mor">
+                <label for="Mor">Morelos</label>
+            </div>
+          </div>
+        
+        </div>
+
+        <div id="precio" class="pestanaC">
+          <div class="elegirTramit" id="elegirTramit">
+          
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="columnaDerechaC">
+      <div class="preciosTotal">
+        <p class="totalCot">Total <span class="totalCot2">de los servicios seleccionados:</span></p>
+        <div id="arrojaCosto">
+          <p class="totalCan">$0.00</p>
+        </div>
+        <p class="totalCot3">+ derechos</p>
+      </div>
+      <div class="cotizacion"><p id="CCot"></p></div>
+      <div class="carrazo">
+        <img src="https://v2.gestocar.mx/wp-content/uploads/2024/03/pngwing-4.png" alt="Carrazo">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ciudad    = document.getElementById('ciudad');
+    const servicios = document.getElementById('servicios');
+    const listas    = document.getElementById('listas');
+    const precio    = document.getElementById('precio');
+    const embeber   = document.getElementById('elegirTramit');
+    let radios      = document.querySelectorAll('input[name="state"]');
+    const S1        = document.getElementById('CDMX');
+    const S2        = document.getElementById('EdoMex');
+    const S3        = document.getElementById('Mor');
+    const costoArr  = document.getElementById('arrojaCosto');
+    const CCot      = document.getElementById('CCot');
+    let valorSeleccionado;
+    let cuenta = 1;
+    let costoTotal = 0;
+    let arrayNeto = [];
+    let arrayP = [];
+    let arrayC = [];
+    let indicesAEliminar;
+    let procedures = ["Alta de placas vehículo nuevos a gasolina, híbridos y eléctricos","Alta de placas vehículos de otra entidad","Alta de placas para motos nuevas",
+    "Alta de placas para motos con adeudos","Alta de placas vehículos de carga","Alta de placas federales","Alta de placas vehículos clásicos",
+    "Alta de placas de discapacidad","Cambio de propietario","Refrendo vehicular","Renovación de tarjeta de circulación","Reemplacamiento","Baja de placas",
+    "Verificación vehicular","Permiso de carga tipo Antra y FAT","Revista vehicular para transporte de carga","Liberación en corralón",
+    "Acreditación de propiedad ante MP","Traslados de autos","Mensajería","Validación automotriz","Seguro para tu auto","Renovación de tarjeta de circulación carga",
+    "Baja de placas carga","Reemplacamiento de carga","Alta vehiculo nuevo +1 millón"];
+    let cost1 = [3000,4000,2000,2,4500,5500,6500,6500,2500,2,2500,2,2500,1500,4500,5500,3000,3000,0,0,2500,0,3500,3500,2,2];
+    let cost2 = [3000,4000,2000,2,4000,2,6500,6500,2500,2,2,2500,2500,2000,4500,2,3000,3000,2,2,2500,0,2,3000,3000,2];
+    let cost3 = [3000,4000,2500,3000,4000,2,12500,9500,3000,1500,2,2,2500,3000,4500,2,3000,3000,2,2,2500,0,2,3000,2,5000];
+    
+    //==============ACCIONES============
+    ciudad.addEventListener('click',()=>{
+      cuenta = 1;
+      alternaAgain();
+    });
+    servicios.addEventListener('click',()=>{
+      cuenta = 2;
+      alternaAgain();
+    });
+
+    S1.addEventListener('change',()=>{
+      arrayNeto = [];
+      CCot.textContent='';
+      radios.forEach(function(radio) {
+        if (radio.checked) {
+          valorSeleccionado = radio.value;
+        }
+      });
+
+      let {arrayP,arrayC} = asignaArray(valorSeleccionado);
+      renderLista(arrayP,arrayC);
+    });
+
+    S2.addEventListener('change',()=>{
+      arrayNeto = [];
+      CCot.textContent='';
+      radios.forEach(function(radio) {
+        if (radio.checked) {
+          valorSeleccionado = radio.value;
+        }
+      });
+      
+      let {arrayP,arrayC} = asignaArray(valorSeleccionado);
+      renderLista(arrayP,arrayC);
+    });
+
+    S3.addEventListener('change',()=>{
+      arrayNeto = [];
+      CCot.textContent='';
+      radios.forEach(function(radio) {
+        if (radio.checked) {
+          valorSeleccionado = radio.value;
+        }
+      });
+      
+      let {arrayP,arrayC} = asignaArray(valorSeleccionado);
+      renderLista(arrayP,arrayC);
+    });
+
+    //===============FUNCIONES=============
+    const alternaAgain = ()=>{
+      if(cuenta==1){
+        ciudad.classList.value = 'etk etkACT',
+        listas.classList.value = 'pestanaC pestanaACTC'
+      }
+      else{
+        ciudad.classList.value = 'etk',
+        listas.classList.value = 'pestanaC'
+      }
+      if(cuenta==2){
+        servicios.classList.value = 'etk etkACT',
+        precio.classList.value = 'pestanaC pestanaACTC'
+      }
+      else{
+        servicios.classList.value = 'etk',
+        precio.classList.value = 'pestanaC'
+      }
+    }
+
+    const asignaArray = (est='')=>{
+      switch (est) {
+        case "CDMX":
+          indicesAEliminar = [3,9,11,24,25];
+          arrayP = procedures.filter((elemento, indice) => !indicesAEliminar.includes(indice));
+          arrayC = cost1.filter((elemento, indice) => !indicesAEliminar.includes(indice));
+        break;
+        case "EdoMex":
+          indicesAEliminar = [3,5,9,10,15,18,19,22,25];
+          arrayP = procedures.filter((elemento, indice) => !indicesAEliminar.includes(indice));
+          arrayC = cost2.filter((elemento, indice) => !indicesAEliminar.includes(indice));
+        break;
+        case "Mor":
+          indicesAEliminar = [5,10,11,15,18,19,22,24];
+          arrayP = procedures.filter((elemento, indice) => !indicesAEliminar.includes(indice));
+          arrayC = cost3.filter((elemento, indice) => !indicesAEliminar.includes(indice));
+        break;
+        default:
+          arrayP = procedures
+          arrayC = cost1
+        break;
+      } 
+      return({arrayP,arrayC})
+    }
+
+    const renderLista = (arrayX = []) => {
+      let html = '';
+      for (let i = 0; i < arrayX.length; i++) {
+        html += `
+          <div class="opcionEstado">
+            <input type="checkbox" id="procedure${i + 1}" value="${i}" name="proced">
+            <label for="procedure${i + 1}">${i + 1} - ${arrayX[i]}</label>
+          </div>
+        `;
+      }
+      embeber.innerHTML = html;
+      
+      let checkboxes  = document.querySelectorAll('input[type="checkbox"]');//obtener todos los checkbox creados
+      checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', () => {
+          if (checkbox.checked) {
+            arrayNeto.push(parseInt(checkbox.value));
+          } else {
+            const index = arrayNeto.indexOf(parseInt(checkbox.value));
+            if (index !== -1) {
+              arrayNeto.splice(index, 1);
+            }
+          }
+          obtenCosto(arrayNeto)
+        });
+      });
+      
+    }
+
+    const obtenCosto = (something = []) =>{
+      CCot.textContent='';
+      costoTotal=0;
+      let mnv = 0
+      for (let j = 0; j < something.length; j++) {
+        if(arrayC[something[j]]==0){
+          mnv = mnv + 1;
+          if(mnv>1){
+            CCot.textContent=`+${mnv} COTIZACIONES EXTRA`
+          }
+          else{
+            CCot.textContent=`+${mnv} COTIZACION EXTRA`
+          }
+        }
+        costoTotal = costoTotal + arrayC[something[j]];
+      }
+      costoArr.innerHTML = `<p class="totalCan">$${costoTotal.toFixed(1)}</p>`
+    }
+
+  </script>
+</body>
+</html>
